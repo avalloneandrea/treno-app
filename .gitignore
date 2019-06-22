@@ -76,6 +76,9 @@ typings/
 # vuepress build output
 .vuepress/dist
 
+# nest.js build output
+dist
+
 # Serverless directories
 .serverless/
 
