@@ -2,13 +2,13 @@ import { HttpService, Injectable } from '@nestjs/common';
 import { AxiosResponse } from 'axios';
 import { Observable, of } from "rxjs";
 import { map, switchMap } from "rxjs/operators";
-import { StationsService } from "../stations/stations.service";
+import { StationService } from '../station/station.service';
 import { Status } from "./status";
 
 @Injectable()
 export class TrainsService {
 
-  constructor(private readonly httpService: HttpService, private readonly stations: StationsService) {}
+  constructor(private readonly httpService: HttpService, private readonly stationService: StationService) {}
 
   getStatusByMessage(message: string): Observable<Status> {
     const train: string = this.parseTrain(message);
@@ -16,7 +16,7 @@ export class TrainsService {
   }
 
   getStatusByTrain(train: string): Observable<Status> {
-    return this.stations.getStation(train).pipe(
+    return this.stationService.getFirstStationByTrain(train).pipe(
       switchMap(station => this.getStatusByStationAndTrain(station, train)));
   }
 
