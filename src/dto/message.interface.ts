@@ -1,4 +1,4 @@
-export class Event {
+export interface Message {
 
   channel?: string;
   text?: string;
