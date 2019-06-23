@@ -1,16 +1,16 @@
 import { HttpService, Injectable } from '@nestjs/common';
+import { Status } from '../dto/status.interface';
+import { TrainService } from '../train/train.service';
 import { Message } from "./message";
-import { Status } from "../trains/status";
-import { TrainsService } from "../trains/trains.service";
 import { Wrapper } from "./wrapper";
 
 @Injectable()
 export class EventsService {
 
-  constructor(private readonly httpService: HttpService, private readonly trains: TrainsService) {}
+  constructor(private readonly httpService: HttpService, private readonly trains: TrainService) {}
 
   postMessage(wrapper: Wrapper): void {
-    this.trains.getStatusByMessage(wrapper.event.text)
+    this.trains.getStatusByText(wrapper.event.text)
       .subscribe((status: Status) => {
         const text: string = `<!here> Il treno ${status.compNumeroTreno}, proveniente da ${status.origine} e diretto a ${status.destinazione}, delle ore ${status.compOrarioPartenza}, viaggia ${status.compRitardoAndamento[0]}`;
         const message: Message = {channel: wrapper.event.channel, text: text};

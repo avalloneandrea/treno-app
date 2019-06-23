@@ -5,7 +5,8 @@ import { EventsController } from './events/events.controller';
 import { EventsService } from './events/events.service';
 import { StationPipe } from './station/station.pipe';
 import { StationService } from './station/station.service';
-import { TrainsService } from './trains/trains.service';
+import { TrainPipe } from './train/train.pipe';
+import { TrainService } from './train/train.service';
 
 @Module({
   imports: [HttpModule],
@@ -15,7 +16,8 @@ import { TrainsService } from './trains/trains.service';
     EventsService,
     StationPipe,
     StationService,
-    TrainsService
+    TrainPipe,
+    TrainService
   ]
 })
 export class AppModule {}

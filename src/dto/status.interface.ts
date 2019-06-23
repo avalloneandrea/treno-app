@@ -1,4 +1,4 @@
-export class Status {
+export interface Status {
 
   compNumeroTreno?: string;
   origine?: string;
