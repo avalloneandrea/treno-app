@@ -11,7 +11,7 @@ export class EventController {
   create(@Body() wrapper: Wrapper) {
     switch (wrapper.type) {
       case 'url_verification':
-        return this.eventService.handleUrlVerification(wrapper);
+        return this.eventService.handleUrlVerifications(wrapper);
       case 'event_callback':
         return this.eventService.handleBotMentionsAndDMs(wrapper);
     }

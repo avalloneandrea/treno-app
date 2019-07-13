@@ -1,18 +1,54 @@
+import { HttpModule, HttpService } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
+import { AxiosResponse } from 'axios';
+import { of } from 'rxjs';
+import { Status } from '../dto/status.interface';
+import { StationPipe } from '../station/station.pipe';
+import { StationService } from '../station/station.service';
+import { TrainPipe } from '../train/train.pipe';
+import { TrainService } from '../train/train.service';
 import { EventService } from './event.service';
 
 describe('EventService', () => {
-  let service: EventService;
+
+  let httpService: HttpService;
+  let trainService: TrainService;
+  let eventService: EventService;
 
   beforeEach(async () => {
-    const module: TestingModule = await Test.createTestingModule({
-      providers: [EventService]
+    const testingModule: TestingModule = await Test.createTestingModule({
+      imports: [HttpModule],
+      providers: [EventService, StationPipe, StationService, TrainPipe, TrainService]
     }).compile();
-
-    service = module.get<EventService>(EventService);
+    httpService = testingModule.get<HttpService>(HttpService);
+    trainService = testingModule.get<TrainService>(TrainService);
+    eventService = testingModule.get<EventService>(EventService);
   });
 
   it('should be defined', () => {
-    expect(service).toBeDefined();
+    expect(eventService).toBeDefined();
   });
+
+  it('should handle url verifications', () => {
+    eventService.handleUrlVerifications({challenge: 'challenge'})
+      .subscribe(result => expect(result).toEqual('challenge'));
+  });
+
+  it('should handle bot mentions and DMs', () => {
+    const status: Status = {
+      compNumeroTreno: 'EC 80',
+      origine: 'VERONA PORTA NUOVA',
+      destinazione: 'BRENNERO',
+      compOrarioPartenza: '11:00',
+      compOrarioArrivo: '14:00',
+      compRitardoAndamento: ['in orario']
+    };
+    jest.spyOn(trainService, 'getStatusByText')
+      .mockImplementation(() => of(status));
+    jest.spyOn(httpService, 'post')
+      .mockImplementation(() => of(<AxiosResponse>{data: {status: '200', statusText: 'OK'}}));
+    eventService.handleBotMentionsAndDMs({event: {text: '80'}})
+      .subscribe(result => expect(result).toEqual('200 OK'));
+  });
+
 });

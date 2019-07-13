@@ -12,7 +12,7 @@ export class EventService {
 
   constructor(private httpService: HttpService, private trainService: TrainService) {}
 
-  handleUrlVerification(wrapper: Wrapper): Observable<string> {
+  handleUrlVerifications(wrapper: Wrapper): Observable<string> {
     return of(wrapper.challenge);
   }
 
@@ -20,10 +20,11 @@ export class EventService {
     const url: string = 'https://slack.com/api/chat.postMessage';
     const token: string = process.env.token;
     return this.trainService.getStatusByText(wrapper.event.text).pipe(
-      map((status: Status) => `<!here> Il treno ${status.compNumeroTreno}, proveniente da ${status.origine} e diretto a ${status.destinazione}, delle ore ${status.compOrarioPartenza}, viaggia ${status.compRitardoAndamento[0]}`),
+      map((status: Status) => `Il treno ${status.compNumeroTreno}, proveniente da ${status.origine} e diretto a ${status.destinazione}, delle ore ${status.compOrarioPartenza}, viaggia ${status.compRitardoAndamento[0]}`),
       map((text: string) => <Message>{channel: wrapper.event.channel, text: text}),
       switchMap((message: Message) => this.httpService.post(url, message, {headers: {'Authorization': `Bearer ${token}`}})),
-      map((response: AxiosResponse) => `${response.status} ${response.statusText}`));
+      map((response: AxiosResponse) => response.data),
+      map((data: any) => `${data.status} ${data.statusText}`));
   }
 
 }
