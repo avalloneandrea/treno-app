@@ -7,4 +7,4 @@
 
 A Slack bot to get information about trains status.
 
-You can check the API documentation [here](https://treno-bot.herokuapp.com).
+You can check the API documentation [here](https://treno-bot.herokuapp.com/api).

@@ -10,7 +10,7 @@ async function bootstrap() {
     .addTag('Events', 'Operations about Slack events')
     .build();
   const document = SwaggerModule.createDocument(app, options);
-  SwaggerModule.setup('/', app, document);
+  SwaggerModule.setup('/api', app, document);
   await app.listen(process.env.PORT || 3000);
 }
 
