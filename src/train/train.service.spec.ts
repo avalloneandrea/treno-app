@@ -14,13 +14,13 @@ describe('TrainService', () => {
   let trainService: TrainService;
 
   beforeEach(async () => {
-    const testingModule: TestingModule = await Test.createTestingModule({
+    const fixture: TestingModule = await Test.createTestingModule({
       imports: [HttpModule],
       providers: [StationPipe, StationService, TrainPipe, TrainService]
     }).compile();
-    httpService = testingModule.get(HttpService);
-    stationService = testingModule.get(StationService);
-    trainService = testingModule.get(TrainService);
+    httpService = fixture.get(HttpService);
+    stationService = fixture.get(StationService);
+    trainService = fixture.get(TrainService);
   });
 
   it('should be defined', () => {

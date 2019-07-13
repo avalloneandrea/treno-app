@@ -6,10 +6,10 @@ describe('StationPipe', () => {
   let stationPipe: StationPipe;
 
   beforeEach(async () => {
-    const testingModule: TestingModule = await Test.createTestingModule({
+    const fixture: TestingModule = await Test.createTestingModule({
       providers: [StationPipe]
     }).compile();
-    stationPipe = testingModule.get(StationPipe);
+    stationPipe = fixture.get(StationPipe);
   });
 
   it('should be defined', () => {

@@ -14,12 +14,12 @@ describe('Event Controller', () => {
   let eventController: EventController;
 
   beforeEach(async () => {
-    const testingModule: TestingModule = await Test.createTestingModule({
+    const fixture: TestingModule = await Test.createTestingModule({
       imports: [HttpModule],
       providers: [EventController, EventService, StationPipe, StationService, TrainPipe, TrainService]
     }).compile();
-    eventService = testingModule.get(EventService);
-    eventController = testingModule.get(EventController);
+    eventService = fixture.get(EventService);
+    eventController = fixture.get(EventController);
   });
 
   it('should be defined', () => {

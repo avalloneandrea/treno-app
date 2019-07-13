@@ -16,13 +16,13 @@ describe('EventService', () => {
   let eventService: EventService;
 
   beforeEach(async () => {
-    const testingModule: TestingModule = await Test.createTestingModule({
+    const fixture: TestingModule = await Test.createTestingModule({
       imports: [HttpModule],
       providers: [EventService, StationPipe, StationService, TrainPipe, TrainService]
     }).compile();
-    httpService = testingModule.get(HttpService);
-    trainService = testingModule.get(TrainService);
-    eventService = testingModule.get(EventService);
+    httpService = fixture.get(HttpService);
+    trainService = fixture.get(TrainService);
+    eventService = fixture.get(EventService);
   });
 
   it('should be defined', () => {
