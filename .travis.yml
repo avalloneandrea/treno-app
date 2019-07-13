@@ -1,2 +1,5 @@
 language: node_js
 node_js: "lts/dubnium"
+
+after_success:
+  - cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js

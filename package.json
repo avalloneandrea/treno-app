@@ -1,6 +1,6 @@
 {
   "name": "treno-bot",
-  "version": "2.0.16",
+  "version": "2.0.17",
   "description": "",
   "author": "",
   "license": "MIT",
@@ -34,6 +34,7 @@
     "@types/node": "^12.6.2",
     "@types/supertest": "^2.0.8",
     "concurrently": "^4.1.1",
+    "coveralls": "^3.0.5",
     "jest": "^24.8.0",
     "nodemon": "^1.19.1",
     "prettier": "^1.18.2",
