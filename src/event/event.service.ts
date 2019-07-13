@@ -2,9 +2,9 @@ import { HttpService, Injectable } from '@nestjs/common';
 import { AxiosResponse } from 'axios';
 import { Observable, of } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
-import { Message } from '../dto/message.interface';
-import { Status } from '../dto/status.interface';
-import { Wrapper } from '../dto/wrapper.interface';
+import { Message } from '../dto/message.dto';
+import { Status } from '../dto/status.dto';
+import { Wrapper } from '../dto/wrapper.dto';
 import { TrainService } from '../train/train.service';
 
 @Injectable()
