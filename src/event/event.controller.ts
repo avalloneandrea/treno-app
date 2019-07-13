@@ -8,7 +8,7 @@ export class EventController {
   constructor(private eventService: EventService) {}
 
   @Post()
-  create(@Body() wrapper: Wrapper) {
+  handleEvents(@Body() wrapper: Wrapper) {
     switch (wrapper.type) {
       case 'url_verification':
         return this.eventService.handleUrlVerifications(wrapper);

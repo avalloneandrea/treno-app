@@ -9,12 +9,6 @@ import { TrainService } from './train/train.service';
 @Module({
   imports: [HttpModule],
   controllers: [EventController],
-  providers: [
-    EventService,
-    StationPipe,
-    StationService,
-    TrainPipe,
-    TrainService
-  ]
+  providers: [EventService, StationPipe, StationService, TrainPipe, TrainService]
 })
 export class AppModule {}
