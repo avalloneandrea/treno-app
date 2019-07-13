@@ -18,8 +18,8 @@ describe('Event Controller', () => {
       imports: [HttpModule],
       providers: [EventController, EventService, StationPipe, StationService, TrainPipe, TrainService]
     }).compile();
-    eventService = testingModule.get<EventService>(EventService);
-    eventController = testingModule.get<EventController>(EventController);
+    eventService = testingModule.get(EventService);
+    eventController = testingModule.get(EventController);
   });
 
   it('should be defined', () => {
@@ -28,14 +28,14 @@ describe('Event Controller', () => {
 
   it('should handle url verifications events', () => {
     jest.spyOn(eventService, 'handleUrlVerifications')
-      .mockImplementation(() => of(<string>'challenge'));
+      .mockImplementation(() => of('challenge'));
     eventController.handleEvents({type: 'url_verification', challenge: 'challenge'})
       .subscribe(result => expect(result).toEqual('challenge'));
   });
 
   it('should handle bot mentions and DMs events', () => {
     jest.spyOn(eventService, 'handleBotMentionsAndDMs')
-      .mockImplementation(() => of(<string>'Il treno viaggia in orario'));
+      .mockImplementation(() => of('Il treno viaggia in orario'));
     eventController.handleEvents({type: 'event_callback', event: {text: '80'}})
       .subscribe(result => expect(result).toEqual('Il treno viaggia in orario'));
   });

@@ -18,9 +18,9 @@ describe('TrainService', () => {
       imports: [HttpModule],
       providers: [StationPipe, StationService, TrainPipe, TrainService]
     }).compile();
-    httpService = testingModule.get<HttpService>(HttpService);
-    stationService = testingModule.get<StationService>(StationService);
-    trainService = testingModule.get<TrainService>(TrainService);
+    httpService = testingModule.get(HttpService);
+    stationService = testingModule.get(StationService);
+    trainService = testingModule.get(TrainService);
   });
 
   it('should be defined', () => {
@@ -29,7 +29,7 @@ describe('TrainService', () => {
 
   it('should get the status of a valid station and train', () => {
     jest.spyOn(httpService, 'get')
-      .mockImplementation(() => of(<AxiosResponse>{data: {compNumeroTreno: 'EC 80'}}));
+      .mockImplementation(() => of({data: {compNumeroTreno: 'EC 80'}} as AxiosResponse));
     trainService.getStatusByStationAndTrain('S02430', '80')
       .subscribe(result => expect(result.compNumeroTreno).toEqual('EC 80'));
   });
@@ -45,7 +45,7 @@ describe('TrainService', () => {
     jest.spyOn(stationService, 'getFirstStationByTrain')
       .mockImplementation(() => of('S02430'));
     jest.spyOn(httpService, 'get')
-      .mockImplementation(() => of(<AxiosResponse>{data: {compNumeroTreno: 'EC 80'}}));
+      .mockImplementation(() => of({data: {compNumeroTreno: 'EC 80'}} as AxiosResponse));
     trainService.getStatusByTrain('80')
       .subscribe(result => expect(result.compNumeroTreno).toEqual('EC 80'));
   });
@@ -54,7 +54,7 @@ describe('TrainService', () => {
     jest.spyOn(stationService, 'getFirstStationByTrain')
       .mockImplementation(() => of('S02430'));
     jest.spyOn(httpService, 'get')
-      .mockImplementation(() => of(<AxiosResponse>{data: {compNumeroTreno: 'EC 80'}}));
+      .mockImplementation(() => of({data: {compNumeroTreno: 'EC 80'}} as AxiosResponse));
     trainService.getStatusByText('80')
       .subscribe(result => expect(result.compNumeroTreno).toEqual('EC 80'));
   });

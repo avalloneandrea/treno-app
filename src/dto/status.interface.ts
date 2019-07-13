@@ -5,6 +5,6 @@ export interface Status {
   destinazione?: string;
   compOrarioPartenza?: string;
   compOrarioArrivo?: string;
-  compRitardoAndamento?: Array<string>;
+  compRitardoAndamento?: string[];
 
 }

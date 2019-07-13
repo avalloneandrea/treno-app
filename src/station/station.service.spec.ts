@@ -15,8 +15,8 @@ describe('StationService', () => {
       imports: [HttpModule],
       providers: [StationPipe, StationService]
     }).compile();
-    httpService = testingModule.get<HttpService>(HttpService);
-    stationService = testingModule.get<StationService>(StationService);
+    httpService = testingModule.get(HttpService);
+    stationService = testingModule.get(StationService);
   });
 
   it('should be defined', () => {
@@ -25,7 +25,7 @@ describe('StationService', () => {
 
   it('should get the station of a valid train', () => {
     jest.spyOn(httpService, 'get')
-      .mockImplementation(() => of(<AxiosResponse>{data: '80 - VERONA PORTA NUOVA|80-S02430\n80 - BRESCIA|80-N00201\n'}));
+      .mockImplementation(() => of({data: '80 - VERONA PORTA NUOVA|80-S02430\n80 - BRESCIA|80-N00201\n'} as AxiosResponse));
     stationService.getAllStationsByTrain('80')
       .subscribe(result => expect(result).toEqual(['S02430', 'N00201']));
     stationService.getFirstStationByTrain('80')
@@ -34,7 +34,7 @@ describe('StationService', () => {
 
   it('should not get the station of an invalid train', () => {
     jest.spyOn(httpService, 'get')
-      .mockImplementation(() => of(<AxiosResponse>{data: '\n'}));
+      .mockImplementation(() => of({data: '\n'} as AxiosResponse));
     stationService.getAllStationsByTrain('00')
       .subscribe(result => expect(result).toEqual([]));
     stationService.getAllStationsByTrain('')

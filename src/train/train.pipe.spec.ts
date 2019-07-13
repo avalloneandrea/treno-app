@@ -9,7 +9,7 @@ describe('TrainPipe', () => {
     const testingModule: TestingModule = await Test.createTestingModule({
       providers: [TrainPipe]
     }).compile();
-    trainPipe = testingModule.get<TrainPipe>(TrainPipe);
+    trainPipe = testingModule.get(TrainPipe);
   });
 
   it('should be defined', () => {

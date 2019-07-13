@@ -20,9 +20,9 @@ describe('EventService', () => {
       imports: [HttpModule],
       providers: [EventService, StationPipe, StationService, TrainPipe, TrainService]
     }).compile();
-    httpService = testingModule.get<HttpService>(HttpService);
-    trainService = testingModule.get<TrainService>(TrainService);
-    eventService = testingModule.get<EventService>(EventService);
+    httpService = testingModule.get(HttpService);
+    trainService = testingModule.get(TrainService);
+    eventService = testingModule.get(EventService);
   });
 
   it('should be defined', () => {
@@ -46,7 +46,7 @@ describe('EventService', () => {
     jest.spyOn(trainService, 'getStatusByText')
       .mockImplementation(() => of(status));
     jest.spyOn(httpService, 'post')
-      .mockImplementation(() => of(<AxiosResponse>{data: {status: '200', statusText: 'OK'}}));
+      .mockImplementation(() => of({data: {status: '200', statusText: 'OK'}} as AxiosResponse));
     eventService.handleBotMentionsAndDMs({event: {text: '80'}})
       .subscribe(result => expect(result).toEqual('200 OK'));
   });

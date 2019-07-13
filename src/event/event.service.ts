@@ -21,8 +21,8 @@ export class EventService {
     const token: string = process.env.token;
     return this.trainService.getStatusByText(wrapper.event.text).pipe(
       map((status: Status) => `Il treno ${status.compNumeroTreno}, proveniente da ${status.origine} e diretto a ${status.destinazione}, delle ore ${status.compOrarioPartenza}, viaggia ${status.compRitardoAndamento[0]}`),
-      map((text: string) => <Message>{channel: wrapper.event.channel, text: text}),
-      switchMap((message: Message) => this.httpService.post(url, message, {headers: {'Authorization': `Bearer ${token}`}})),
+      map((text: string) => ({channel: wrapper.event.channel, text})),
+      switchMap((message: Message) => this.httpService.post(url, message, {headers: {Authorization: `Bearer ${token}`}})),
       map((response: AxiosResponse) => response.data),
       map((data: any) => `${data.status} ${data.statusText}`));
   }
