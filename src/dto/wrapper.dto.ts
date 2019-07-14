@@ -10,6 +10,9 @@ export class Wrapper {
   event?: Event;
 
   @ApiModelPropertyOptional()
+  event_id?: string;
+
+  @ApiModelPropertyOptional()
   type?: string;
 
 }
