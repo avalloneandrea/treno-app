@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { AppModule } from '../src/app.module';
 
-describe('treno-bot (e2e)', () => {
+describe('treno-app (e2e)', () => {
 
   let app;
 
