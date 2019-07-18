@@ -26,18 +26,18 @@ describe('Event Controller', () => {
     expect(eventController).toBeDefined();
   });
 
-  it('should handle url verifications events', () => {
+  it('should handle url verifications', () => {
     jest.spyOn(eventService, 'handleUrlVerifications')
       .mockImplementation(() => of('challenge'));
     eventController.handleEvents({type: 'url_verification', challenge: 'challenge'})
       .subscribe(result => expect(result).toEqual('challenge'));
   });
 
-  it('should handle bot mentions and DMs events', () => {
+  it('should handle bot mentions and DMs', () => {
     jest.spyOn(eventService, 'handleBotMentionsAndDMs')
-      .mockImplementation(() => of('Il treno viaggia in orario'));
-    eventController.handleEvents({type: 'event_callback', event: {text: '80'}})
-      .subscribe(result => expect(result).toEqual('Il treno viaggia in orario'));
+      .mockImplementation(() => of('200 OK'));
+    eventController.handleEvents({type: 'event_callback', event: {text: '@treno 80'}})
+      .subscribe(result => expect(result).toEqual('200 OK'));
   });
 
 });

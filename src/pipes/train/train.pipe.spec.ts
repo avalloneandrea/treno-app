@@ -17,13 +17,16 @@ describe('TrainPipe', () => {
   });
 
   it('should transform a valid value', () => {
-    expect(trainPipe.transform('2424')).toBe('2424');
-    expect(trainPipe.transform('@treno 2424')).toBe('2424');
-    expect(trainPipe.transform('Remind: @treno 2424.')).toBe('2424');
+    expect(trainPipe.transform('80')).toBe('80');
+    expect(trainPipe.transform('@treno 80')).toBe('80');
+    expect(trainPipe.transform('Remind: @treno 80.')).toBe('80');
   });
 
   it('should not transform an invalid value', () => {
     expect(trainPipe.transform('')).toBeNull();
+    expect(trainPipe.transform('eighty')).toBeNull();
+    expect(trainPipe.transform('@treno eighty')).toBeNull();
+    expect(trainPipe.transform('Remind: @treno eighty.')).toBeNull();
   });
 
 });

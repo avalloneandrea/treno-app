@@ -17,7 +17,7 @@ describe('StationPipe', () => {
   });
 
   it('should transform a valid value', () => {
-    expect(stationPipe.transform('2424 - SAPRI|2424-S11721')).toBe('S11721');
+    expect(stationPipe.transform('80 - VERONA PORTA NUOVA|80-S02430')).toBe('S02430');
   });
 
   it('should not transform an invalid value', () => {

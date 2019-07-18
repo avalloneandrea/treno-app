@@ -35,11 +35,11 @@ describe('StationService', () => {
   it('should not get the station of an invalid train', () => {
     jest.spyOn(httpService, 'get')
       .mockImplementation(() => of({data: '\n'} as AxiosResponse));
-    stationService.getAllStationsByTrain('00')
+    stationService.getAllStationsByTrain('eighty')
       .subscribe(result => expect(result).toEqual([]));
     stationService.getAllStationsByTrain('')
       .subscribe(result => expect(result).toEqual([]));
-    stationService.getFirstStationByTrain('00')
+    stationService.getFirstStationByTrain('eighty')
       .subscribe(result => expect(result).toBeNull());
     stationService.getFirstStationByTrain('')
       .subscribe(result => expect(result).toBeNull());

@@ -35,16 +35,8 @@ describe('EventService', () => {
   });
 
   it('should handle bot mentions and DMs', () => {
-    const status: Status = {
-      compNumeroTreno: 'EC 80',
-      origine: 'VERONA PORTA NUOVA',
-      destinazione: 'BRENNERO',
-      compOrarioPartenza: '11:00',
-      compOrarioArrivo: '14:00',
-      compRitardoAndamento: ['in orario']
-    };
     jest.spyOn(trainService, 'getStatusByText')
-      .mockImplementation(() => of(status));
+      .mockImplementation(() => of({compNumeroTreno: 'EC 80'} as Status));
     jest.spyOn(httpService, 'post')
       .mockImplementation(() => of({data: {status: '200', statusText: 'OK'}} as AxiosResponse));
     eventService.handleBotMentionsAndDMs({event: {text: '80'}})

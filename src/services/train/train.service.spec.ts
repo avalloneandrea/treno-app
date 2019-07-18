@@ -55,7 +55,7 @@ describe('TrainService', () => {
       .mockImplementation(() => of('S02430'));
     jest.spyOn(httpService, 'get')
       .mockImplementation(() => of({data: {compNumeroTreno: 'EC 80'}} as AxiosResponse));
-    trainService.getStatusByText('80')
+    trainService.getStatusByText('@treno 80')
       .subscribe(result => expect(result.compNumeroTreno).toEqual('EC 80'));
   });
 
