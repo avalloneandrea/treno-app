@@ -3,9 +3,9 @@ import { AxiosResponse } from 'axios';
 import { get, startCase, toLower } from 'lodash';
 import { Observable, of } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
-import { Message } from '../dto/message.dto';
-import { Status } from '../dto/status.dto';
-import { Wrapper } from '../dto/wrapper.dto';
+import { Message } from '../../dtos/message.dto';
+import { Status } from '../../dtos/status.dto';
+import { Wrapper } from '../../dtos/wrapper.dto';
 import { TrainService } from '../train/train.service';
 
 @Injectable()

@@ -1,11 +1,11 @@
 import { HttpModule, MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
-import { EventController } from './event/event.controller';
-import { EventService } from './event/event.service';
-import { HistoryMiddleware } from './history/history.middleware';
-import { StationPipe } from './station/station.pipe';
-import { StationService } from './station/station.service';
-import { TrainPipe } from './train/train.pipe';
-import { TrainService } from './train/train.service';
+import { EventController } from './controllers/event/event.controller';
+import { HistoryMiddleware } from './middlewares/history/history.middleware';
+import { StationPipe } from './pipes/station/station.pipe';
+import { TrainPipe } from './pipes/train/train.pipe';
+import { EventService } from './services/event/event.service';
+import { StationService } from './services/station/station.service';
+import { TrainService } from './services/train/train.service';
 
 @Module({
   imports: [HttpModule],

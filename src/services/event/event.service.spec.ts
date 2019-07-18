@@ -2,10 +2,10 @@ import { HttpModule, HttpService } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { AxiosResponse } from 'axios';
 import { of } from 'rxjs';
-import { Status } from '../dto/status.dto';
-import { StationPipe } from '../station/station.pipe';
+import { Status } from '../../dtos/status.dto';
+import { StationPipe } from '../../pipes/station/station.pipe';
+import { TrainPipe } from '../../pipes/train/train.pipe';
 import { StationService } from '../station/station.service';
-import { TrainPipe } from '../train/train.pipe';
 import { TrainService } from '../train/train.service';
 import { EventService } from './event.service';
 

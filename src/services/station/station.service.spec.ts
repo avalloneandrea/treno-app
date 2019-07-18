@@ -2,7 +2,7 @@ import { HttpModule, HttpService } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { AxiosResponse } from 'axios';
 import { of } from 'rxjs';
-import { StationPipe } from './station.pipe';
+import { StationPipe } from '../../pipes/station/station.pipe';
 import { StationService } from './station.service';
 
 describe('StationService', () => {

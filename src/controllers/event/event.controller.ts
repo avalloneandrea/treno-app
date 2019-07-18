@@ -1,7 +1,7 @@
 import { Body, Controller, Post } from '@nestjs/common';
 import { ApiOkResponse, ApiOperation, ApiUseTags } from '@nestjs/swagger';
-import { Wrapper } from '../dto/wrapper.dto';
-import { EventService } from './event.service';
+import { Wrapper } from '../../dtos/wrapper.dto';
+import { EventService } from '../../services/event/event.service';
 
 @ApiUseTags('Events')
 @Controller('events')
