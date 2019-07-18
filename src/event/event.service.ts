@@ -1,5 +1,6 @@
 import { HttpService, Injectable } from '@nestjs/common';
 import { AxiosResponse } from 'axios';
+import { get, startCase, toLower } from 'lodash';
 import { Observable, of } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 import { Message } from '../dto/message.dto';
@@ -20,7 +21,12 @@ export class EventService {
     const url: string = 'https://slack.com/api/chat.postMessage';
     const token: string = process.env.token;
     return this.trainService.getStatusByText(wrapper.event.text).pipe(
-      map((status: Status) => `Il treno ${status.compNumeroTreno}, proveniente da ${status.origine} e diretto a ${status.destinazione}, delle ore ${status.compOrarioPartenza}, viaggia ${status.compRitardoAndamento[0]}`),
+      map((status: Status) => [
+        `Il treno ${status.compNumeroTreno}`,
+        `proveniente da ${startCase(toLower(status.origine))} e diretto a ${startCase(toLower(status.destinazione))}`,
+        `delle ore ${status.compOrarioPartenza}`,
+        `viaggia ${get(status.compRitardoAndamento, 0)}`]
+        .join(', ')),
       map((text: string) => ({channel: wrapper.event.channel, text})),
       switchMap((message: Message) => this.httpService.post(url, message, {headers: {Authorization: `Bearer ${token}`}})),
       map((response: AxiosResponse) => response.data),
