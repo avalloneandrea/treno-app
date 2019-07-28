@@ -6,5 +6,3 @@
 # Treno (app)
 
 A Slack app to get real time information about Trenitalia trains.
-
-You can check the API documentation [here](https://trenoapp.herokuapp.com/api).
