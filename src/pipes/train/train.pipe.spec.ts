@@ -3,30 +3,30 @@ import { TrainPipe } from './train.pipe';
 
 describe('TrainPipe', () => {
 
-  let trainPipe: TrainPipe;
+  let pipe: TrainPipe;
 
   beforeEach(async () => {
     const fixture: TestingModule = await Test.createTestingModule({
       providers: [TrainPipe]
     }).compile();
-    trainPipe = fixture.get(TrainPipe);
+    pipe = fixture.get(TrainPipe);
   });
 
   it('should be defined', () => {
-    expect(trainPipe).toBeDefined();
+    expect(pipe).toBeDefined();
   });
 
   it('should transform a valid value', () => {
-    expect(trainPipe.transform('80')).toBe('80');
-    expect(trainPipe.transform('@treno 80')).toBe('80');
-    expect(trainPipe.transform('Remind: @treno 80.')).toBe('80');
+    expect(pipe.transform('72415')).toBe('72415');
+    expect(pipe.transform('@treno 72415')).toBe('72415');
+    expect(pipe.transform('Remind: @treno 72415.')).toBe('72415');
   });
 
   it('should not transform an invalid value', () => {
-    expect(trainPipe.transform('')).toBeNull();
-    expect(trainPipe.transform('eighty')).toBeNull();
-    expect(trainPipe.transform('@treno eighty')).toBeNull();
-    expect(trainPipe.transform('Remind: @treno eighty.')).toBeNull();
+    expect(pipe.transform('')).toBeNull();
+    expect(pipe.transform('train')).toBeNull();
+    expect(pipe.transform('@treno train')).toBeNull();
+    expect(pipe.transform('Remind: @treno train.')).toBeNull();
   });
 
 });

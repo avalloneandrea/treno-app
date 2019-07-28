@@ -1,0 +1,22 @@
+import { Injectable } from '@nestjs/common';
+import { AxiosResponse } from 'axios';
+import { Observable, of } from 'rxjs';
+
+@Injectable()
+export class HttpServiceMock {
+
+  get(url: string): Observable<AxiosResponse> {
+    if (url === 'http://www.viaggiatreno.it/viaggiatrenonew/resteasy/viaggiatreno/cercaNumeroTrenoTrenoAutocomplete/72415')
+      return of({data: '72415 - FIRST STATION|72415-5747105\n72415 - SECOND STATION|72415-5747105'} as AxiosResponse);
+    if (url === 'http://www.viaggiatreno.it/viaggiatrenonew/resteasy/viaggiatreno/andamentoTreno/5747105/72415')
+      return of({data: {compNumeroTreno: 'REG 72415'}} as AxiosResponse);
+    return of({data: '\n'} as AxiosResponse);
+  }
+
+  post(url: string): Observable<AxiosResponse> {
+    if (url === 'https://slack.com/api/chat.postMessage')
+      return of({data: {ok: true}} as AxiosResponse);
+    return of({data: {ok: false}} as AxiosResponse);
+  }
+
+}

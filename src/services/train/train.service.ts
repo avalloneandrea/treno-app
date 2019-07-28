@@ -14,7 +14,8 @@ export class TrainService {
   getStatusByStationAndTrain(station: string, train: string): Observable<Status> {
     if (!station || !train)
       return of();
-    return this.httpService.get(`http://www.viaggiatreno.it/viaggiatrenonew/resteasy/viaggiatreno/andamentoTreno/${station}/${train}/`).pipe(
+    const url: string = `http://www.viaggiatreno.it/viaggiatrenonew/resteasy/viaggiatreno/andamentoTreno/${station}/${train}`;
+    return this.httpService.get(url).pipe(
       map((response: AxiosResponse) => response.data));
   }
 

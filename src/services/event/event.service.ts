@@ -30,7 +30,7 @@ export class EventService {
       map((text: string) => ({channel: wrapper.event.channel, text})),
       switchMap((message: Message) => this.httpService.post(url, message, {headers: {Authorization: `Bearer ${token}`}})),
       map((response: AxiosResponse) => response.data),
-      map((data: any) => `${data.status} ${data.statusText}`));
+      map((data: any) => data.ok));
   }
 
 }

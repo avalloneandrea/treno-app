@@ -1,47 +1,39 @@
-import { HttpModule, HttpService } from '@nestjs/common';
+import { HttpService } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
-import { AxiosResponse } from 'axios';
-import { of } from 'rxjs';
+import { HttpServiceMock } from '../../../test/http.service.mock';
 import { StationPipe } from '../../pipes/station/station.pipe';
 import { StationService } from './station.service';
 
 describe('StationService', () => {
 
-  let httpService: HttpService;
-  let stationService: StationService;
+  let service: StationService;
 
   beforeEach(async () => {
     const fixture: TestingModule = await Test.createTestingModule({
-      imports: [HttpModule],
-      providers: [StationPipe, StationService]
+      providers: [{provide: HttpService, useClass: HttpServiceMock}, StationPipe, StationService]
     }).compile();
-    httpService = fixture.get(HttpService);
-    stationService = fixture.get(StationService);
+    service = fixture.get(StationService);
   });
 
   it('should be defined', () => {
-    expect(stationService).toBeDefined();
+    expect(service).toBeDefined();
   });
 
   it('should get the station of a valid train', () => {
-    jest.spyOn(httpService, 'get')
-      .mockImplementation(() => of({data: '80 - VERONA PORTA NUOVA|80-S02430\n80 - BRESCIA|80-N00201\n'} as AxiosResponse));
-    stationService.getAllStationsByTrain('80')
-      .subscribe(result => expect(result).toEqual(['S02430', 'N00201']));
-    stationService.getFirstStationByTrain('80')
-      .subscribe(result => expect(result).toEqual('S02430'));
+    service.getAllStationsByTrain('72415')
+      .subscribe(result => expect(result).toEqual(['5747105', '5747105']));
+    service.getFirstStationByTrain('72415')
+      .subscribe(result => expect(result).toEqual('5747105'));
   });
 
   it('should not get the station of an invalid train', () => {
-    jest.spyOn(httpService, 'get')
-      .mockImplementation(() => of({data: '\n'} as AxiosResponse));
-    stationService.getAllStationsByTrain('eighty')
+    service.getAllStationsByTrain('')
       .subscribe(result => expect(result).toEqual([]));
-    stationService.getAllStationsByTrain('')
+    service.getAllStationsByTrain('train')
       .subscribe(result => expect(result).toEqual([]));
-    stationService.getFirstStationByTrain('eighty')
+    service.getFirstStationByTrain('')
       .subscribe(result => expect(result).toBeNull());
-    stationService.getFirstStationByTrain('')
+    service.getFirstStationByTrain('train')
       .subscribe(result => expect(result).toBeNull());
   });
 

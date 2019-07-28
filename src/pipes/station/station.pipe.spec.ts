@@ -3,25 +3,26 @@ import { StationPipe } from './station.pipe';
 
 describe('StationPipe', () => {
 
-  let stationPipe: StationPipe;
+  let pipe: StationPipe;
 
   beforeEach(async () => {
     const fixture: TestingModule = await Test.createTestingModule({
       providers: [StationPipe]
     }).compile();
-    stationPipe = fixture.get(StationPipe);
+    pipe = fixture.get(StationPipe);
   });
 
   it('should be defined', () => {
-    expect(stationPipe).toBeDefined();
+    expect(pipe).toBeDefined();
   });
 
   it('should transform a valid value', () => {
-    expect(stationPipe.transform('80 - VERONA PORTA NUOVA|80-S02430')).toBe('S02430');
+    expect(pipe.transform('72415 - STATION|72415-5747105')).toBe('5747105');
   });
 
   it('should not transform an invalid value', () => {
-    expect(stationPipe.transform('')).toBeNull();
+    expect(pipe.transform('')).toBeNull();
+    expect(pipe.transform('+?@|/')).toBeNull();
   });
 
 });

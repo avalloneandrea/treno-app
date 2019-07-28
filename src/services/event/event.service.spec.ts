@@ -1,8 +1,6 @@
-import { HttpModule, HttpService } from '@nestjs/common';
+import { HttpService } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
-import { AxiosResponse } from 'axios';
-import { of } from 'rxjs';
-import { Status } from '../../dtos/status.dto';
+import { HttpServiceMock } from '../../../test/http.service.mock';
 import { StationPipe } from '../../pipes/station/station.pipe';
 import { TrainPipe } from '../../pipes/train/train.pipe';
 import { StationService } from '../station/station.service';
@@ -11,36 +9,31 @@ import { EventService } from './event.service';
 
 describe('EventService', () => {
 
-  let httpService: HttpService;
-  let trainService: TrainService;
-  let eventService: EventService;
+  let service: EventService;
 
   beforeEach(async () => {
     const fixture: TestingModule = await Test.createTestingModule({
-      imports: [HttpModule],
-      providers: [EventService, StationPipe, StationService, TrainPipe, TrainService]
+      providers: [EventService, {provide: HttpService, useClass: HttpServiceMock}, StationPipe, StationService, TrainPipe, TrainService]
     }).compile();
-    httpService = fixture.get(HttpService);
-    trainService = fixture.get(TrainService);
-    eventService = fixture.get(EventService);
+    service = fixture.get(EventService);
   });
 
   it('should be defined', () => {
-    expect(eventService).toBeDefined();
+    expect(service).toBeDefined();
   });
 
   it('should handle url verifications', () => {
-    eventService.handleUrlVerifications({challenge: 'challenge'})
+    service.handleUrlVerifications({challenge: 'challenge'})
       .subscribe(result => expect(result).toEqual('challenge'));
   });
 
   it('should handle bot mentions and DMs', () => {
-    jest.spyOn(trainService, 'getStatusByText')
-      .mockImplementation(() => of({compNumeroTreno: 'EC 80'} as Status));
-    jest.spyOn(httpService, 'post')
-      .mockImplementation(() => of({data: {status: '200', statusText: 'OK'}} as AxiosResponse));
-    eventService.handleBotMentionsAndDMs({event: {text: '80'}})
-      .subscribe(result => expect(result).toEqual('200 OK'));
+    service.handleBotMentionsAndDMs({event: {text: '72415'}})
+      .subscribe(result => expect(result).toBeTruthy());
+    service.handleBotMentionsAndDMs({event: {text: '@treno 72415'}})
+      .subscribe(result => expect(result).toBeTruthy());
+    service.handleBotMentionsAndDMs({event: {text: 'Remind: @treno 72415.'}})
+      .subscribe(result => expect(result).toBeTruthy());
   });
 
 });
