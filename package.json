@@ -1,6 +1,6 @@
 {
   "name": "treno-app",
-  "version": "2.2.6",
+  "version": "2.2.7",
   "description": "",
   "author": "",
   "license": "MIT",
@@ -23,7 +23,7 @@
     "@nestjs/common": "^6.5.3",
     "@nestjs/core": "^6.5.3",
     "@nestjs/platform-express": "^6.5.3",
-    "lodash": "^4.17.14",
+    "lodash": "^4.17.15",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^2.6.3",
     "rxjs": "^6.5.2"
