@@ -5,6 +5,7 @@ export class Status {
   destinazione?: string;
   compOrarioPartenza?: string;
   compOrarioArrivo?: string;
+  provvedimento?: number;
   compRitardoAndamento?: string[];
 
 }

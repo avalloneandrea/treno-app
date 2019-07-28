@@ -1,6 +1,6 @@
 import { HttpService, Injectable } from '@nestjs/common';
 import { AxiosResponse } from 'axios';
-import { get, startCase, toLower } from 'lodash';
+import { startCase, toLower } from 'lodash';
 import { Observable, of } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 import { Message } from '../../dtos/message.dto';
@@ -25,12 +25,17 @@ export class EventService {
         `Il treno ${status.compNumeroTreno}`,
         `proveniente da ${startCase(toLower(status.origine))} e diretto a ${startCase(toLower(status.destinazione))}`,
         `delle ore ${status.compOrarioPartenza}`,
-        `viaggia ${get(status.compRitardoAndamento, 0)}`]
+        `${this.getAndamento(status)}`]
         .join(', ')),
       map((text: string) => ({channel: wrapper.event.channel, text})),
       switchMap((message: Message) => this.httpService.post(url, message, {headers: {Authorization: `Bearer ${token}`}})),
       map((response: AxiosResponse) => response.data),
       map((data: any) => data.ok));
+  }
+
+  private getAndamento(status: Status): string {
+    const isCircolante: boolean = status.provvedimento === 0;
+    return isCircolante ? `viaggia ${status.compRitardoAndamento[0]}` : 'è stato cancellato';
   }
 
 }
