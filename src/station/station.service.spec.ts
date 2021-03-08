@@ -1,8 +1,9 @@
 import { HttpService } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
-import { HttpServiceMock } from '../../../test/http.service.mock';
-import { StationPipe } from '../../pipes/station/station.pipe';
+
+import { StationPipe } from './station.pipe';
 import { StationService } from './station.service';
+import { HttpServiceMock } from '../../test/http.service.mock';
 
 describe('StationService', () => {
 

@@ -1,12 +1,13 @@
 import { HttpService } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
-import { HttpServiceMock } from '../../../test/http.service.mock';
-import { StationPipe } from '../../pipes/station/station.pipe';
-import { TrainPipe } from '../../pipes/train/train.pipe';
-import { EventService } from '../../services/event/event.service';
-import { StationService } from '../../services/station/station.service';
-import { TrainService } from '../../services/train/train.service';
+
 import { EventController } from './event.controller';
+import { EventService } from './event.service';
+import { StationPipe } from '../station/station.pipe';
+import { StationService } from '../station/station.service';
+import { TrainPipe } from '../train/train.pipe';
+import { TrainService } from '../train/train.service';
+import { HttpServiceMock } from '../../test/http.service.mock';
 
 describe('EventController', () => {
 

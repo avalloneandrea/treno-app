@@ -1,10 +1,11 @@
 import { HttpService } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
-import { HttpServiceMock } from '../../../test/http.service.mock';
-import { StationPipe } from '../../pipes/station/station.pipe';
-import { TrainPipe } from '../../pipes/train/train.pipe';
-import { StationService } from '../station/station.service';
+
+import { TrainPipe } from './train.pipe';
 import { TrainService } from './train.service';
+import { StationPipe } from '../station/station.pipe';
+import { StationService } from '../station/station.service';
+import { HttpServiceMock } from '../../test/http.service.mock';
 
 describe('TrainService', () => {
 

@@ -2,7 +2,8 @@ import { HttpService, Injectable } from '@nestjs/common';
 import { AxiosResponse } from 'axios';
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { StationPipe } from '../../pipes/station/station.pipe';
+
+import { StationPipe } from './station.pipe';
 
 @Injectable()
 export class StationService {

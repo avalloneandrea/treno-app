@@ -1,6 +1,7 @@
 import { Body, Controller, Post } from '@nestjs/common';
-import { Wrapper } from '../../dtos/wrapper.dto';
-import { EventService } from '../../services/event/event.service';
+
+import { EventService } from './event.service';
+import { Wrapper } from '../domain/wrapper.dto';
 
 @Controller('events')
 export class EventController {

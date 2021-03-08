@@ -3,9 +3,10 @@ import { AxiosResponse } from 'axios';
 import { startCase, toLower } from 'lodash';
 import { Observable, of } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
-import { Message } from '../../dtos/message.dto';
-import { Status } from '../../dtos/status.dto';
-import { Wrapper } from '../../dtos/wrapper.dto';
+
+import { Message } from '../domain/message.dto';
+import { Status } from '../domain/status.dto';
+import { Wrapper } from '../domain/wrapper.dto';
 import { TrainService } from '../train/train.service';
 
 @Injectable()
