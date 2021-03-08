@@ -2,7 +2,7 @@ import { HttpService, Injectable } from '@nestjs/common';
 import { AxiosResponse } from 'axios';
 import { startCase, toLower } from 'lodash';
 import { Observable, of } from 'rxjs';
-import { map, switchMap } from 'rxjs/operators';
+import { map, switchMap, tap } from 'rxjs/operators';
 
 import { Message } from '../domain/message.dto';
 import { Status } from '../domain/status.dto';
@@ -31,6 +31,7 @@ export class EventService {
       map((text: string) => ({channel: wrapper.event.channel, text})),
       switchMap((message: Message) => this.httpService.post(url, message, {headers: {Authorization: `Bearer ${token}`}})),
       map((response: AxiosResponse) => response.data),
+      tap(data => console.log(data)),
       map((data: any) => data.ok));
   }
 

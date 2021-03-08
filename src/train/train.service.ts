@@ -1,7 +1,7 @@
 import { HttpService, Injectable } from '@nestjs/common';
 import { AxiosResponse } from 'axios';
 import { Observable, of } from 'rxjs';
-import { map, switchMap } from 'rxjs/operators';
+import { map, switchMap, tap } from 'rxjs/operators';
 
 import { TrainPipe } from './train.pipe';
 import { Status } from '../domain/status.dto';
@@ -17,7 +17,8 @@ export class TrainService {
       return of();
     const url: string = `http://www.viaggiatreno.it/viaggiatrenonew/resteasy/viaggiatreno/andamentoTreno/${station}/${train}`;
     return this.httpService.get(url).pipe(
-      map((response: AxiosResponse) => response.data));
+      map((response: AxiosResponse) => response.data),
+      tap(data => console.log(data)));
   }
 
   getStatusByTrain(train: string): Observable<Status> {
