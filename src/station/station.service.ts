@@ -13,7 +13,7 @@ export class StationService {
   getAllStationsByTrain(train: string): Observable<string[]> {
     if (!train)
       return of();
-    const url: string = `http://www.viaggiatreno.it/viaggiatrenonew/resteasy/viaggiatreno/cercaNumeroTrenoTrenoAutocomplete/${train}`;
+    const url = `http://www.viaggiatreno.it/viaggiatrenonew/resteasy/viaggiatreno/cercaNumeroTrenoTrenoAutocomplete/${ train }`;
     return this.httpService.get(url).pipe(
       map((response: AxiosResponse) => response.data),
       tap(data => console.log(data)),

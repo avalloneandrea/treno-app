@@ -19,17 +19,17 @@ export class EventService {
   }
 
   handleBotMentionsAndDMs(wrapper: Wrapper): Observable<string> {
-    const url: string = 'https://slack.com/api/chat.postMessage';
+    const url = 'https://slack.com/api/chat.postMessage';
     const token: string = process.env.token;
     return this.trainService.getStatusByText(wrapper.event.text).pipe(
       map((status: Status) => [
-        `Il treno ${status.compNumeroTreno}`,
-        `proveniente da ${startCase(toLower(status.origine))} e diretto a ${startCase(toLower(status.destinazione))}`,
-        `delle ore ${status.compOrarioPartenza}`,
-        `${this.getAndamento(status)}`]
+        `Il treno ${ status.compNumeroTreno }`,
+        `proveniente da ${ startCase(toLower(status.origine)) } e diretto a ${ startCase(toLower(status.destinazione)) }`,
+        `delle ore ${ status.compOrarioPartenza }`,
+        `${ this.getAndamento(status) }` ]
         .join(', ')),
-      map((text: string) => ({channel: wrapper.event.channel, text})),
-      switchMap((message: Message) => this.httpService.post(url, message, {headers: {Authorization: `Bearer ${token}`}})),
+      map((text: string) => ({ channel: wrapper.event.channel, text })),
+      switchMap((message: Message) => this.httpService.post(url, message, { headers: { Authorization: `Bearer ${ token }` } })),
       map((response: AxiosResponse) => response.data),
       tap(data => console.log(data)),
       map((data: any) => data.ok));
@@ -37,7 +37,7 @@ export class EventService {
 
   private getAndamento(status: Status): string {
     const isCircolante: boolean = status.provvedimento === 0;
-    return isCircolante ? `viaggia ${status.compRitardoAndamento[0]}` : 'è stato cancellato';
+    return isCircolante ? `viaggia ${ status.compRitardoAndamento[0] }` : 'è stato cancellato';
   }
 
 }

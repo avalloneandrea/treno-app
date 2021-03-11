@@ -11,7 +11,11 @@ describe('StationService', () => {
 
   beforeEach(async () => {
     const fixture: TestingModule = await Test.createTestingModule({
-      providers: [{provide: HttpService, useClass: HttpServiceMock}, StationPipe, StationService]
+      providers: [
+        { provide: HttpService, useClass: HttpServiceMock },
+        StationPipe,
+        StationService
+      ]
     }).compile();
     service = fixture.get(StationService);
   });
@@ -22,7 +26,7 @@ describe('StationService', () => {
 
   it('should get the station of a valid train', () => {
     service.getAllStationsByTrain('72415')
-      .subscribe(result => expect(result).toEqual(['5747105', '5747105']));
+      .subscribe(result => expect(result).toEqual([ '5747105', '5747105' ]));
     service.getFirstStationByTrain('72415')
       .subscribe(result => expect(result).toEqual('5747105'));
   });

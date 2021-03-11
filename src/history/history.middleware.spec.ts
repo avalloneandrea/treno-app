@@ -13,14 +13,14 @@ describe('HistoryMiddleware', () => {
   });
 
   it('should pass an unseen request', () => {
-    const req: any = {body: {event_id: 'id'}};
+    const req: any = { body: { event_id: 'id' } };
     const next: any = jest.fn();
     middleware.use(req, null, next);
     expect(next).toHaveBeenCalledTimes(1);
   });
 
   it('should stop a seen request', () => {
-    const req: any = {body: {event_id: 'id'}};
+    const req: any = { body: { event_id: 'id' } };
     const next: any = jest.fn();
     middleware.use(req, null, next);
     middleware.use(req, null, next);

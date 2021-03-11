@@ -14,7 +14,14 @@ describe('EventService', () => {
 
   beforeEach(async () => {
     const fixture: TestingModule = await Test.createTestingModule({
-      providers: [EventService, {provide: HttpService, useClass: HttpServiceMock}, StationPipe, StationService, TrainPipe, TrainService]
+      providers: [
+        EventService,
+        { provide: HttpService, useClass: HttpServiceMock },
+        StationPipe,
+        StationService,
+        TrainPipe,
+        TrainService
+      ]
     }).compile();
     service = fixture.get(EventService);
   });
@@ -24,16 +31,16 @@ describe('EventService', () => {
   });
 
   it('should handle url verifications', () => {
-    service.handleUrlVerifications({challenge: 'challenge'})
+    service.handleUrlVerifications({ challenge: 'challenge' })
       .subscribe(result => expect(result).toEqual('challenge'));
   });
 
   it('should handle bot mentions and DMs', () => {
-    service.handleBotMentionsAndDMs({event: {text: '72415'}})
+    service.handleBotMentionsAndDMs({ event: { text: '72415' } })
       .subscribe(result => expect(result).toBeTruthy());
-    service.handleBotMentionsAndDMs({event: {text: '@treno 72415'}})
+    service.handleBotMentionsAndDMs({ event: { text: '@treno 72415' } })
       .subscribe(result => expect(result).toBeTruthy());
-    service.handleBotMentionsAndDMs({event: {text: 'Remind: @treno 51427.'}})
+    service.handleBotMentionsAndDMs({ event: { text: 'Remind: @treno 51427.' } })
       .subscribe(result => expect(result).toBeTruthy());
   });
 

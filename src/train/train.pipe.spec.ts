@@ -8,7 +8,7 @@ describe('TrainPipe', () => {
 
   beforeEach(async () => {
     const fixture: TestingModule = await Test.createTestingModule({
-      providers: [TrainPipe]
+      providers: [ TrainPipe ]
     }).compile();
     pipe = fixture.get(TrainPipe);
   });

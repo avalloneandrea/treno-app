@@ -17,7 +17,7 @@ describe('EventController', () => {
     const fixture: TestingModule = await Test.createTestingModule({
       providers: [
         EventController, EventService,
-        {provide: HttpService, useClass: HttpServiceMock},
+        { provide: HttpService, useClass: HttpServiceMock },
         StationPipe, StationService,
         TrainPipe, TrainService
       ]
@@ -30,16 +30,16 @@ describe('EventController', () => {
   });
 
   it('should handle url verifications', () => {
-    controller.handleEvents({type: 'url_verification', challenge: 'challenge'})
+    controller.handleEvents({ type: 'url_verification', challenge: 'challenge' })
       .subscribe(result => expect(result).toEqual('challenge'));
   });
 
   it('should handle bot mentions and DMs', () => {
-    controller.handleEvents({type: 'event_callback', event: {text: '72415'}})
+    controller.handleEvents({ type: 'event_callback', event: { text: '72415' } })
       .subscribe(result => expect(result).toBeTruthy());
-    controller.handleEvents({type: 'event_callback', event: {text: '@treno 72415'}})
+    controller.handleEvents({ type: 'event_callback', event: { text: '@treno 72415' } })
       .subscribe(result => expect(result).toBeTruthy());
-    controller.handleEvents({type: 'event_callback', event: {text: 'Remind: @treno 72415.'}})
+    controller.handleEvents({ type: 'event_callback', event: { text: 'Remind: @treno 72415.' } })
       .subscribe(result => expect(result).toBeTruthy());
   });
 
