@@ -1,28 +1,28 @@
 import { HttpService } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 
-import { EventController } from './event.controller';
-import { EventService } from './event.service';
+import { ChatController } from './chat.controller';
+import { ChatService } from './chat.service';
 import { StationPipe } from '../station/station.pipe';
 import { StationService } from '../station/station.service';
 import { TrainPipe } from '../train/train.pipe';
 import { TrainService } from '../train/train.service';
 import { HttpServiceMock } from '../../test/http.service.mock';
 
-describe('EventController', () => {
+describe('ChatController', () => {
 
-  let controller: EventController;
+  let controller: ChatController;
 
   beforeEach(async () => {
     const fixture: TestingModule = await Test.createTestingModule({
       providers: [
-        EventController, EventService,
+        ChatController, ChatService,
         { provide: HttpService, useClass: HttpServiceMock },
         StationPipe, StationService,
         TrainPipe, TrainService
       ]
     }).compile();
-    controller = fixture.get(EventController);
+    controller = fixture.get(ChatController);
   });
 
   it('should be defined', () => {
@@ -30,16 +30,16 @@ describe('EventController', () => {
   });
 
   it('should handle url verifications', () => {
-    controller.handleEvents({ type: 'url_verification', challenge: 'challenge' })
+    controller.handleChats({ type: 'url_verification', challenge: 'challenge' })
       .subscribe(result => expect(result).toEqual('challenge'));
   });
 
   it('should handle bot mentions and DMs', () => {
-    controller.handleEvents({ type: 'event_callback', event: { text: '72415' } })
+    controller.handleChats({ type: 'event_callback', event: { text: '72415' } })
       .subscribe(result => expect(result).toBeTruthy());
-    controller.handleEvents({ type: 'event_callback', event: { text: '@treno 72415' } })
+    controller.handleChats({ type: 'event_callback', event: { text: '@treno 72415' } })
       .subscribe(result => expect(result).toBeTruthy());
-    controller.handleEvents({ type: 'event_callback', event: { text: 'Remind: @treno 72415.' } })
+    controller.handleChats({ type: 'event_callback', event: { text: 'Remind: @treno 72415.' } })
       .subscribe(result => expect(result).toBeTruthy());
   });
 

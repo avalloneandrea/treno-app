@@ -2,8 +2,8 @@ import { HttpModule, MiddlewareConsumer, Module, NestModule } from '@nestjs/comm
 
 import { AuthController } from './auth/auth.controller';
 import { AuthService } from './auth/auth.service';
-import { EventController } from './event/event.controller';
-import { EventService } from './event/event.service';
+import { ChatController } from './chat/chat.controller';
+import { ChatService } from './chat/chat.service';
 import { HistoryMiddleware } from './history/history.middleware';
 import { StationPipe } from './station/station.pipe';
 import { StationService } from './station/station.service';
@@ -12,21 +12,15 @@ import { TrainService } from './train/train.service';
 
 @Module({
   imports: [ HttpModule ],
-  controllers: [
-    AuthController,
-    EventController
-  ],
+  controllers: [ AuthController, ChatController ],
   providers: [
-    AuthService,
-    EventService,
-    StationPipe,
-    StationService,
-    TrainPipe,
-    TrainService
+    AuthService, ChatService,
+    StationPipe, StationService,
+    TrainPipe, TrainService
   ]
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
-    consumer.apply(HistoryMiddleware).forRoutes(EventController);
+    consumer.apply(HistoryMiddleware).forRoutes(ChatController);
   }
 }

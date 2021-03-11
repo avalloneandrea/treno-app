@@ -1,7 +1,7 @@
 import { HttpService, Injectable } from '@nestjs/common';
 import { AxiosResponse } from 'axios';
 import { Observable, of } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 
 import { StationPipe } from './station.pipe';
 
@@ -16,7 +16,6 @@ export class StationService {
     const url = `http://www.viaggiatreno.it/viaggiatrenonew/resteasy/viaggiatreno/cercaNumeroTrenoTrenoAutocomplete/${ train }`;
     return this.httpService.get(url).pipe(
       map((response: AxiosResponse) => response.data),
-      tap(data => console.log(data)),
       map((data: string) => data.split('\n')),
       map((lines: string[]) => lines.map(line => this.stationPipe.transform(line))),
       map((stations: string[]) => stations.filter(Boolean)));

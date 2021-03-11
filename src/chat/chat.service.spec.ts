@@ -1,29 +1,27 @@
 import { HttpService } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 
-import { EventService } from './event.service';
+import { ChatService } from './chat.service';
 import { StationPipe } from '../station/station.pipe';
 import { StationService } from '../station/station.service';
 import { TrainPipe } from '../train/train.pipe';
 import { TrainService } from '../train/train.service';
 import { HttpServiceMock } from '../../test/http.service.mock';
 
-describe('EventService', () => {
+describe('ChatService', () => {
 
-  let service: EventService;
+  let service: ChatService;
 
   beforeEach(async () => {
     const fixture: TestingModule = await Test.createTestingModule({
       providers: [
-        EventService,
+        ChatService,
         { provide: HttpService, useClass: HttpServiceMock },
-        StationPipe,
-        StationService,
-        TrainPipe,
-        TrainService
+        StationPipe, StationService,
+        TrainPipe, TrainService
       ]
     }).compile();
-    service = fixture.get(EventService);
+    service = fixture.get(ChatService);
   });
 
   it('should be defined', () => {

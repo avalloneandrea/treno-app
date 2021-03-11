@@ -9,14 +9,14 @@ import { Grant } from '../domain/grant.dto';
 @Injectable()
 export class AuthService {
 
-  constructor(private httpService: HttpService) {}
+  constructor(private http: HttpService) {}
 
   authorize(code: string) {
     const url = 'https://slack.com/api/oauth.v2.access';
     const client_id = '385758389520.647264549143';
-    const client_secret: string = process.env.client_secret;
+    const client_secret: string = process.env.secret;
     return of({ code, client_id, client_secret }).pipe(
-      switchMap((grant: Grant) => this.httpService.post(url, stringify(grant))),
+      switchMap((grant: Grant) => this.http.post(url, stringify(grant))),
       map((response: AxiosResponse) => response.data),
       tap(data => console.log(data)),
       map((data: any) => ({ url: data.incoming_webhook.configuration_url })))

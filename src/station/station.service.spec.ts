@@ -13,8 +13,7 @@ describe('StationService', () => {
     const fixture: TestingModule = await Test.createTestingModule({
       providers: [
         { provide: HttpService, useClass: HttpServiceMock },
-        StationPipe,
-        StationService
+        StationPipe, StationService
       ]
     }).compile();
     service = fixture.get(StationService);
