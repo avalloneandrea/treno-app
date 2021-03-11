@@ -3,10 +3,78 @@
 <head>
     <meta charset="utf-8">
     <title>Treno (app)</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
 </head>
 <body>
-    <a href="https://slack.com/oauth/v2/authorize?client_id=385758389520.647264549143&scope=app_mentions:read,chat:write,im:read,incoming-webhook,im:write&user_scope=im:read,im:write">
-        <img alt="Add to Slack" height="40" width="139" src="https://platform.slack-edge.com/img/add_to_slack.png" srcSet="https://platform.slack-edge.com/img/add_to_slack.png 1x, https://platform.slack-edge.com/img/add_to_slack@2x.png 2x"/>
-    </a>
+    <section class="hero is-light is-fullheight">
+        <div class="hero-body">
+            <div class="container is-max-desktop">
+                <article class="has-text-centered">
+                    <p class="title">Treno</p>
+                    <p class="subtitle">A Slack app to get real time information about Trenitalia trains</p>
+                    <figure class="media-center">
+                        <img alt="Treno" height="256" width="256" src="icon.png"/>
+                    </figure>
+                    <div class="content">
+                        <a href="https://slack.com/oauth/v2/authorize?client_id=385758389520.647264549143&scope=app_mentions:read,chat:write,incoming-webhook,im:read&user_scope=">
+                            <img alt="Add to Slack" height="40" width="139" src="https://platform.slack-edge.com/img/add_to_slack.png" srcSet="https://platform.slack-edge.com/img/add_to_slack.png 1x, https://platform.slack-edge.com/img/add_to_slack@2x.png 2x"/>
+                        </a>
+                    </div>
+                </article>
+                <br>
+                <div class="tile is-ancestor">
+                    <div class="tile is-vertical">
+                        <div class="tile">
+                            <div class="tile is-parent">
+                                <article class="tile is-child notification is-white">
+                                    <article class="media">
+                                        <figure class="media-left image is-64x64">
+                                            <img class="is-rounded" src="https://t4.ftcdn.net/jpg/00/64/67/27/240_F_64672736_U5kpdGs9keUll8CRQ3p3YaEv2M6qkVY5.jpg">
+                                        </figure>
+                                        <div class="media-content">
+                                            <strong>John Smith</strong> <small>12:34</small>
+                                            <br>2424
+                                        </div>
+                                    </article>
+                                </article>
+                            </div>
+                            <div class="tile is-parent">
+                                <article class="tile is-child notification is-white">
+                                    <article class="media">
+                                        <figure class="media-left image is-64x64">
+                                            <img class="is-rounded" src="https://t4.ftcdn.net/jpg/00/64/67/27/240_F_64672736_U5kpdGs9keUll8CRQ3p3YaEv2M6qkVY5.jpg">
+                                        </figure>
+                                        <div class="media-content">
+                                            <strong>John Smith</strong> <small>12:34</small>
+                                            <br>@treno 2424
+                                        </div>
+                                    </article>
+                                </article>
+                            </div>
+                        </div>
+                        <div class="tile is-parent">
+                            <article class="tile is-child notification is-white">
+                                <article class="media">
+                                    <figure class="media-left image is-64x64">
+                                        <img class="is-rounded" src="https://t4.ftcdn.net/jpg/00/64/67/27/240_F_64672736_U5kpdGs9keUll8CRQ3p3YaEv2M6qkVY5.jpg">
+                                    </figure>
+                                    <div class="media-content">
+                                        <strong>John Smith</strong> <small>12:34</small>
+                                        <br>/remind #general @treno 2424 every weekday at 12:34
+                                    </div>
+                                </article>
+                            </article>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer class="footer">
+            <div class="content has-text-centered">
+                <a href="https://github.com/avalloneandrea/treno-app"><strong>Treno</strong> by Andrea Avallone</a><br>
+                <a href="https://github.com/avalloneandrea/treno-app/blob/master/LICENSE">Treno is licensed under the MIT License</a>
+            </div>
+        </footer>
+    </section>
 </body>
 </html>
