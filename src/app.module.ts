@@ -1,4 +1,6 @@
 import { HttpModule, MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
 
 import { AuthController } from './auth/auth.controller';
 import { AuthService } from './auth/auth.service';
@@ -11,7 +13,7 @@ import { TrainPipe } from './train/train.pipe';
 import { TrainService } from './train/train.service';
 
 @Module({
-  imports: [ HttpModule ],
+  imports: [ HttpModule, ServeStaticModule.forRoot({ rootPath: join(__dirname, '..', 'public') }) ],
   controllers: [ AuthController, ChatController ],
   providers: [
     AuthService, ChatService,

@@ -1,6 +1,6 @@
 {
   "name": "treno-app",
-  "version": "2.4.2",
+  "version": "2.4.3",
   "description": "",
   "author": "",
   "private": true,
@@ -24,6 +24,7 @@
     "@nestjs/common": "~7.6.13",
     "@nestjs/core": "~7.6.13",
     "@nestjs/platform-express": "~7.6.13",
+    "@nestjs/serve-static": "~2.1.4",
     "lodash": "~4.17.21",
     "qs": "~6.9.6",
     "reflect-metadata": "~0.1.13",
