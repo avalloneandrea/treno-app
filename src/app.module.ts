@@ -1,5 +1,6 @@
-import { HttpModule, MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
+import { CacheModule, HttpModule, MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { ServeStaticModule } from '@nestjs/serve-static';
+import * as redisStore from 'cache-manager-redis-store';
 import { join } from 'path';
 
 import { AuthController } from './auth/auth.controller';
@@ -13,8 +14,15 @@ import { TrainPipe } from './train/train.pipe';
 import { TrainService } from './train/train.service';
 
 @Module({
-  imports: [ HttpModule, ServeStaticModule.forRoot({ rootPath: join(__dirname, '..', 'public') }) ],
-  controllers: [ AuthController, ChatController ],
+  imports: [
+    CacheModule.register({ store: redisStore, url: process.env.datasource }),
+    HttpModule,
+    ServeStaticModule.forRoot({ rootPath: join(__dirname, '..', 'public') })
+  ],
+  controllers: [
+    AuthController,
+    ChatController
+  ],
   providers: [
     AuthService, ChatService,
     StationPipe, StationService,
