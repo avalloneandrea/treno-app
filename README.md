@@ -5,5 +5,5 @@
 
 # Treno
 
-Treno is a Slack app to get real time information about Trenitalia trains.
+A Slack app to get real time information about Trenitalia trains.
 Just drop the number of the train in a DM with Treno, or after a mention, and get the information you are looking for!
