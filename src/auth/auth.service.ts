@@ -19,6 +19,7 @@ export class AuthService {
     return of({ code, client_id, client_secret }).pipe(
       switchMap((grant: Grant) => this.http.post(url, stringify(grant))),
       map((response: AxiosResponse) => response.data),
+      tap((data: any) => console.log(data)),
       tap(data => this.tokens.set(data.team.id, data.access_token, { ttl: 0 })),
       map((data: any) => ({ url: data.incoming_webhook.configuration_url })))
   }

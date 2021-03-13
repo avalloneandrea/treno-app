@@ -27,6 +27,7 @@ export class ChatService {
       switchMap((message: Message) => forkJoin([ of(message), this.tokens.get(wrapper.team_id) ])),
       switchMap(([ message, token ]) => this.http.post(url, message, { headers: { Authorization: `Bearer ${ token }` } })),
       map((response: AxiosResponse) => response.data),
+      tap((data: any) => console.log(data)),
       map((data: any) => data.ok));
   }
 
