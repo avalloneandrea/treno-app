@@ -15,7 +15,7 @@ import { TrainService } from './train/train.service';
 
 @Module({
   imports: [
-    CacheModule.register({ store: redisStore, url: process.env.datasource }),
+    CacheModule.register({ store: redisStore, url: process.env.REDIS_URL }),
     HttpModule,
     ServeStaticModule.forRoot({ rootPath: join(__dirname, '..', 'public') })
   ],

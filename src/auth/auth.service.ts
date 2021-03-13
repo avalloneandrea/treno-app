@@ -15,7 +15,7 @@ export class AuthService {
   authorize(code: string) {
     const url = 'https://slack.com/api/oauth.v2.access';
     const client_id = '385758389520.647264549143';
-    const client_secret: string = process.env.secret;
+    const client_secret: string = process.env.CLIENT_SECRET;
     return of({ code, client_id, client_secret }).pipe(
       switchMap((grant: Grant) => this.http.post(url, stringify(grant))),
       map((response: AxiosResponse) => response.data),
