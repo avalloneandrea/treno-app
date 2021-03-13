@@ -2,6 +2,7 @@ import { CACHE_MANAGER, HttpService } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 
 import { ChatController } from './chat.controller';
+import { ChatPipe } from './chat.pipe';
 import { ChatService } from './chat.service';
 import { StationPipe } from '../station/station.pipe';
 import { StationService } from '../station/station.service';
@@ -18,7 +19,7 @@ describe('ChatController', () => {
     const fixture: TestingModule = await Test.createTestingModule({
       providers: [
         { provide: CACHE_MANAGER, useClass: StoreMock },
-        ChatController, ChatService,
+        ChatController, ChatPipe, ChatService,
         { provide: HttpService, useClass: HttpMock },
         StationPipe, StationService,
         TrainPipe, TrainService

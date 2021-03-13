@@ -6,6 +6,7 @@ import { join } from 'path';
 import { AuthController } from './auth/auth.controller';
 import { AuthService } from './auth/auth.service';
 import { ChatController } from './chat/chat.controller';
+import { ChatPipe } from './chat/chat.pipe';
 import { ChatService } from './chat/chat.service';
 import { HistoryMiddleware } from './history/history.middleware';
 import { StationPipe } from './station/station.pipe';
@@ -24,7 +25,8 @@ import { TrainService } from './train/train.service';
     ChatController
   ],
   providers: [
-    AuthService, ChatService,
+    AuthService,
+    ChatPipe, ChatService,
     StationPipe, StationService,
     TrainPipe, TrainService
   ]
