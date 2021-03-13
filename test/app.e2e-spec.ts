@@ -1,4 +1,4 @@
-describe('treno-app (e2e)', () => {
+describe('TrenoApp', () => {
 
   it('should pass', () => {
     expect(true).toBeTruthy();

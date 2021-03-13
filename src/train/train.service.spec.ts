@@ -5,7 +5,7 @@ import { TrainPipe } from './train.pipe';
 import { TrainService } from './train.service';
 import { StationPipe } from '../station/station.pipe';
 import { StationService } from '../station/station.service';
-import { HttpServiceMock } from '../../test/http.service.mock';
+import { HttpMock } from '../../test/http.mock';
 
 describe('TrainService', () => {
 
@@ -14,7 +14,7 @@ describe('TrainService', () => {
   beforeEach(async () => {
     const fixture: TestingModule = await Test.createTestingModule({
       providers: [
-        { provide: HttpService, useClass: HttpServiceMock },
+        { provide: HttpService, useClass: HttpMock },
         StationPipe, StationService,
         TrainPipe, TrainService
       ]

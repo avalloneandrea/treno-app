@@ -1,9 +1,10 @@
-import { CACHE_MANAGER, CacheModule, HttpService } from "@nestjs/common";
-import { Test, TestingModule } from "@nestjs/testing";
+import { CACHE_MANAGER, HttpService } from '@nestjs/common';
+import { Test, TestingModule } from '@nestjs/testing';
 
-import { AuthController } from "./auth.controller";
-import { AuthService } from "./auth.service";
-import { HttpServiceMock } from "../../test/http.service.mock";
+import { AuthController } from './auth.controller';
+import { AuthService } from './auth.service';
+import { HttpMock } from '../../test/http.mock';
+import { StoreMock } from '../../test/store.mock';
 
 describe('AuthController', () => {
 
@@ -11,11 +12,10 @@ describe('AuthController', () => {
 
   beforeEach(async () => {
     const fixture: TestingModule = await Test.createTestingModule({
-      imports: [ CacheModule.register() ],
       providers: [
         AuthController, AuthService,
-        { provide: CACHE_MANAGER, useValue: { get: jest.fn(() => 'VALUE'), set: jest.fn() } },
-        { provide: HttpService, useClass: HttpServiceMock }
+        { provide: CACHE_MANAGER, useClass: StoreMock },
+        { provide: HttpService, useClass: HttpMock }
       ]
     }).compile();
     controller = fixture.get(AuthController);

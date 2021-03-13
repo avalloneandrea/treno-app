@@ -3,7 +3,7 @@ import { AxiosResponse } from 'axios';
 import { Observable, of } from 'rxjs';
 
 @Injectable()
-export class HttpServiceMock {
+export class HttpMock {
 
   get(url: string): Observable<AxiosResponse> {
     if (url === 'http://www.viaggiatreno.it/viaggiatrenonew/resteasy/viaggiatreno/cercaNumeroTrenoTrenoAutocomplete/72415')
@@ -18,10 +18,10 @@ export class HttpServiceMock {
   }
 
   post(url: string): Observable<AxiosResponse> {
-    if (url === 'https://slack.com/api/chat.postMessage')
-      return of({ data: { ok: true } } as AxiosResponse);
     if (url === 'https://slack.com/api/oauth.v2.access')
       return of({ data: { team: {}, incoming_webhook: { configuration_url: 'www.redirect.url' } } } as AxiosResponse);
+    if (url === 'https://slack.com/api/chat.postMessage')
+      return of({ data: { ok: true } } as AxiosResponse);
     return of({ data: { ok: false } } as AxiosResponse);
   }
 

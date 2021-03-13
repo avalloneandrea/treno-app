@@ -3,7 +3,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 
 import { StationPipe } from './station.pipe';
 import { StationService } from './station.service';
-import { HttpServiceMock } from '../../test/http.service.mock';
+import { HttpMock } from '../../test/http.mock';
 
 describe('StationService', () => {
 
@@ -12,7 +12,7 @@ describe('StationService', () => {
   beforeEach(async () => {
     const fixture: TestingModule = await Test.createTestingModule({
       providers: [
-        { provide: HttpService, useClass: HttpServiceMock },
+        { provide: HttpService, useClass: HttpMock },
         StationPipe, StationService
       ]
     }).compile();

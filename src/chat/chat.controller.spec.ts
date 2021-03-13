@@ -1,4 +1,4 @@
-import { CACHE_MANAGER, CacheModule, HttpService } from '@nestjs/common';
+import { CACHE_MANAGER, HttpService } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 
 import { ChatController } from './chat.controller';
@@ -7,7 +7,8 @@ import { StationPipe } from '../station/station.pipe';
 import { StationService } from '../station/station.service';
 import { TrainPipe } from '../train/train.pipe';
 import { TrainService } from '../train/train.service';
-import { HttpServiceMock } from '../../test/http.service.mock';
+import { HttpMock } from '../../test/http.mock';
+import { StoreMock } from '../../test/store.mock';
 
 describe('ChatController', () => {
 
@@ -15,11 +16,10 @@ describe('ChatController', () => {
 
   beforeEach(async () => {
     const fixture: TestingModule = await Test.createTestingModule({
-      imports: [ CacheModule.register() ],
       providers: [
-        { provide: CACHE_MANAGER, useValue: { get: jest.fn(() => 'VALUE'), set: jest.fn() } },
+        { provide: CACHE_MANAGER, useClass: StoreMock },
         ChatController, ChatService,
-        { provide: HttpService, useClass: HttpServiceMock },
+        { provide: HttpService, useClass: HttpMock },
         StationPipe, StationService,
         TrainPipe, TrainService
       ]

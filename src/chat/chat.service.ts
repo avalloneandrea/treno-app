@@ -13,7 +13,7 @@ import { TrainService } from '../train/train.service';
 @Injectable()
 export class ChatService {
 
-  constructor(@Inject(CACHE_MANAGER) private tokens: Cache, private http: HttpService, private service: TrainService) {}
+  constructor(@Inject(CACHE_MANAGER) private store: Cache, private http: HttpService, private service: TrainService) {}
 
   handleUrlVerifications(wrapper: Wrapper): Observable<string> {
     return of(wrapper.challenge);
@@ -24,10 +24,10 @@ export class ChatService {
     return this.service.getStatusByText(wrapper.event.text).pipe(
       map((status: Status) => this.toText(status)),
       map((text: string) => ({ channel: wrapper.event.channel, text })),
-      switchMap((message: Message) => forkJoin([ of(message), this.tokens.get(wrapper.team_id) ])),
+      switchMap((message: Message) => forkJoin([ of(message), this.store.get(wrapper.team_id) ])),
       switchMap(([ message, token ]) => this.http.post(url, message, { headers: { Authorization: `Bearer ${ token }` } })),
       map((response: AxiosResponse) => response.data),
-      tap((data: any) => console.log(data)),
+      tap((data: any) => console.debug(data)),
       map((data: any) => data.ok));
   }
 

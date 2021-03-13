@@ -8,16 +8,16 @@ import { StationPipe } from './station.pipe';
 @Injectable()
 export class StationService {
 
-  constructor(private httpService: HttpService, private stationPipe: StationPipe) {}
+  constructor(private http: HttpService, private pipe: StationPipe) {}
 
   getAllStationsByTrain(train: string): Observable<string[]> {
     if (!train)
       return of();
     const url = `http://www.viaggiatreno.it/viaggiatrenonew/resteasy/viaggiatreno/cercaNumeroTrenoTrenoAutocomplete/${ train }`;
-    return this.httpService.get(url).pipe(
+    return this.http.get(url).pipe(
       map((response: AxiosResponse) => response.data),
       map((data: string) => data.split('\n')),
-      map((lines: string[]) => lines.map(line => this.stationPipe.transform(line))),
+      map((lines: string[]) => lines.map(line => this.pipe.transform(line))),
       map((stations: string[]) => stations.filter(Boolean)));
   }
 
