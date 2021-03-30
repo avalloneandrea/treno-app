@@ -20,6 +20,7 @@ describe('ChatPipe', () => {
 
   it('should transform a value for an ongoing train', () => {
     const status: Status = {
+      ok: true,
       compNumeroTreno: 'REG 72415',
       origine: 'NAPOLI CENTRALE',
       destinazione: 'SAPRI',
@@ -36,6 +37,7 @@ describe('ChatPipe', () => {
 
   it('should transform a value for a canceled train', () => {
     const status: Status = {
+      ok: true,
       compNumeroTreno: 'REG 72415',
       origine: 'NAPOLI CENTRALE',
       destinazione: 'SAPRI',

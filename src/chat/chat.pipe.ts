@@ -7,7 +7,9 @@ import { Status } from '../domain/status.dto';
 export class ChatPipe implements PipeTransform {
 
   transform(status: Status) {
-    return [
+    if (!status.ok)
+      return 'Treno non trovato!';
+    else return [
       `Il treno ${ status.compNumeroTreno }`,
       `proveniente da ${ startCase(toLower(status.origine)) } e diretto a ${ startCase(toLower(status.destinazione)) }`,
       `delle ore ${ status.compOrarioPartenza }`,

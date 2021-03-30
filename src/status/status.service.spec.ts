@@ -30,9 +30,9 @@ describe('StatusService', () => {
 
   it('should not get the status of an invalid station or train', () => {
     service.getStatusByStationAndTrain('5747105', '')
-      .subscribe(result => expect(result).toBeNull());
+      .subscribe(result => expect(result.ok).toBeFalsy());
     service.getStatusByStationAndTrain('', '72415')
-      .subscribe(result => expect(result).toBeNull());
+      .subscribe(result => expect(result.ok).toBeFalsy());
   });
 
   it('should get the status of a valid train', () => {
@@ -42,7 +42,7 @@ describe('StatusService', () => {
 
   it('should not get the status of an invalid train', () => {
     service.getStatusByTrain('')
-      .subscribe(result => expect(result).toBeNull());
+      .subscribe(result => expect(result.ok).toBeFalsy());
   });
 
   it('should get the status of a valid text', () => {
@@ -56,7 +56,7 @@ describe('StatusService', () => {
 
   it('should not get the status of an invalid text', () => {
     service.getStatusByText('')
-      .subscribe(result => expect(result).toBeNull());
+      .subscribe(result => expect(result.ok).toBeFalsy());
   });
 
 });
