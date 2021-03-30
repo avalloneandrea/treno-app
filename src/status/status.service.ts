@@ -3,14 +3,14 @@ import { AxiosResponse } from 'axios';
 import { Observable, of } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 
-import { TrainPipe } from './train.pipe';
+import { StatusPipe } from './status.pipe';
 import { Status } from '../domain/status.dto';
-import { StationService } from '../station/station.service';
+import { Train } from '../domain/train.dto';
 
 @Injectable()
-export class TrainService {
+export class StatusService {
 
-  constructor(private http: HttpService, private service: StationService, private pipe: TrainPipe) {}
+  constructor(private http: HttpService, private pipe: StatusPipe) {}
 
   getStatusByStationAndTrain(station: string, train: string): Observable<Status> {
     if (!station || !train)
@@ -21,8 +21,12 @@ export class TrainService {
   }
 
   getStatusByTrain(train: string): Observable<Status> {
-    return this.service.getFirstStationByTrain(train).pipe(
-      switchMap((station: string) => this.getStatusByStationAndTrain(station, train)));
+    if (!train)
+      return of();
+    const url = `http://www.viaggiatreno.it/viaggiatrenonew/resteasy/viaggiatreno/cercaNumeroTreno/${ train }`;
+    return this.http.get(url).pipe(
+      map((response: AxiosResponse) => response.data),
+      switchMap((train: Train) => this.getStatusByStationAndTrain(train.codLocOrig, train.numeroTreno)));
   }
 
   getStatusByText(text: string): Observable<Status> {

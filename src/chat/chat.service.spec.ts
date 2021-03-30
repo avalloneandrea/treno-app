@@ -3,10 +3,8 @@ import { Test, TestingModule } from '@nestjs/testing';
 
 import { ChatPipe } from './chat.pipe';
 import { ChatService } from './chat.service';
-import { StationPipe } from '../station/station.pipe';
-import { StationService } from '../station/station.service';
-import { TrainPipe } from '../train/train.pipe';
-import { TrainService } from '../train/train.service';
+import { StatusPipe } from '../status/status.pipe';
+import { StatusService } from '../status/status.service';
 import { HttpMock } from '../../test/http.mock';
 import { StoreMock } from '../../test/store.mock';
 
@@ -20,8 +18,7 @@ describe('ChatService', () => {
         ChatPipe, ChatService,
         { provide: HttpService, useClass: HttpMock },
         { provide: CACHE_MANAGER, useClass: StoreMock },
-        StationPipe, StationService,
-        TrainPipe, TrainService
+        StatusPipe, StatusService
       ]
     }).compile();
     service = fixture.get(ChatService);

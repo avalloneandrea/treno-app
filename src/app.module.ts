@@ -9,10 +9,8 @@ import { ChatController } from './chat/chat.controller';
 import { ChatPipe } from './chat/chat.pipe';
 import { ChatService } from './chat/chat.service';
 import { HistoryMiddleware } from './history/history.middleware';
-import { StationPipe } from './station/station.pipe';
-import { StationService } from './station/station.service';
-import { TrainPipe } from './train/train.pipe';
-import { TrainService } from './train/train.service';
+import { StatusPipe } from './status/status.pipe';
+import { StatusService } from './status/status.service';
 
 @Module({
   imports: [
@@ -27,8 +25,7 @@ import { TrainService } from './train/train.service';
   providers: [
     AuthService,
     ChatPipe, ChatService,
-    StationPipe, StationService,
-    TrainPipe, TrainService
+    StatusPipe, StatusService
   ]
 })
 export class AppModule implements NestModule {

@@ -8,12 +8,12 @@ import { ChatPipe } from './chat.pipe';
 import { Message } from '../domain/message.dto';
 import { Status } from '../domain/status.dto';
 import { Wrapper } from '../domain/wrapper.dto';
-import { TrainService } from '../train/train.service';
+import { StatusService } from '../status/status.service';
 
 @Injectable()
 export class ChatService {
 
-  constructor(@Inject(CACHE_MANAGER) private store: Cache, private http: HttpService, private service: TrainService, private pipe: ChatPipe) {}
+  constructor(@Inject(CACHE_MANAGER) private store: Cache, private pipe: ChatPipe, private http: HttpService, private service: StatusService) {}
 
   handleUrlVerifications(wrapper: Wrapper): Observable<string> {
     return of(wrapper.challenge);

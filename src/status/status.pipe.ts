@@ -1,7 +1,7 @@
 import { Injectable, PipeTransform } from '@nestjs/common';
 
 @Injectable()
-export class TrainPipe implements PipeTransform {
+export class StatusPipe implements PipeTransform {
 
   private regExp = /(\d+)\.?$/;
 

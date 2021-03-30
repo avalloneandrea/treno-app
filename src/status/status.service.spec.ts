@@ -1,25 +1,22 @@
 import { HttpService } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 
-import { TrainPipe } from './train.pipe';
-import { TrainService } from './train.service';
-import { StationPipe } from '../station/station.pipe';
-import { StationService } from '../station/station.service';
+import { StatusPipe } from './status.pipe';
+import { StatusService } from './status.service';
 import { HttpMock } from '../../test/http.mock';
 
-describe('TrainService', () => {
+describe('StatusService', () => {
 
-  let service: TrainService;
+  let service: StatusService;
 
   beforeEach(async () => {
     const fixture: TestingModule = await Test.createTestingModule({
       providers: [
         { provide: HttpService, useClass: HttpMock },
-        StationPipe, StationService,
-        TrainPipe, TrainService
+        StatusPipe, StatusService
       ]
     }).compile();
-    service = fixture.get(TrainService);
+    service = fixture.get(StatusService);
   });
 
   it('should be defined', () => {
@@ -43,6 +40,11 @@ describe('TrainService', () => {
       .subscribe(result => expect(result.compNumeroTreno).toEqual('REG 72415'));
   });
 
+  it('should not get the status of an invalid train', () => {
+    service.getStatusByTrain('')
+      .subscribe(result => expect(result).toBeNull());
+  });
+
   it('should get the status of a valid text', () => {
     service.getStatusByText('72415')
       .subscribe(result => expect(result.compNumeroTreno).toEqual('REG 72415'));
@@ -50,6 +52,11 @@ describe('TrainService', () => {
       .subscribe(result => expect(result.compNumeroTreno).toEqual('REG 72415'));
     service.getStatusByText('Remind: @treno 72415.')
       .subscribe(result => expect(result.compNumeroTreno).toEqual('REG 72415'));
+  });
+
+  it('should not get the status of an invalid text', () => {
+    service.getStatusByText('')
+      .subscribe(result => expect(result).toBeNull());
   });
 
 });

@@ -4,10 +4,8 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { ChatController } from './chat.controller';
 import { ChatPipe } from './chat.pipe';
 import { ChatService } from './chat.service';
-import { StationPipe } from '../station/station.pipe';
-import { StationService } from '../station/station.service';
-import { TrainPipe } from '../train/train.pipe';
-import { TrainService } from '../train/train.service';
+import { StatusPipe } from '../status/status.pipe';
+import { StatusService } from '../status/status.service';
 import { HttpMock } from '../../test/http.mock';
 import { StoreMock } from '../../test/store.mock';
 
@@ -21,8 +19,7 @@ describe('ChatController', () => {
         { provide: CACHE_MANAGER, useClass: StoreMock },
         ChatController, ChatPipe, ChatService,
         { provide: HttpService, useClass: HttpMock },
-        StationPipe, StationService,
-        TrainPipe, TrainService
+        StatusPipe, StatusService
       ]
     }).compile();
     controller = fixture.get(ChatController);

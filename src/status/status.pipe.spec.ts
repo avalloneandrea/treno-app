@@ -1,16 +1,16 @@
 import { Test, TestingModule } from '@nestjs/testing';
 
-import { TrainPipe } from './train.pipe';
+import { StatusPipe } from './status.pipe';
 
-describe('TrainPipe', () => {
+describe('StatusPipe', () => {
 
-  let pipe: TrainPipe;
+  let pipe: StatusPipe;
 
   beforeEach(async () => {
     const fixture: TestingModule = await Test.createTestingModule({
-      providers: [ TrainPipe ]
+      providers: [ StatusPipe ]
     }).compile();
-    pipe = fixture.get(TrainPipe);
+    pipe = fixture.get(StatusPipe);
   });
 
   it('should be defined', () => {
