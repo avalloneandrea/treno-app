@@ -21,7 +21,7 @@ export class AuthService {
       map((response: AxiosResponse) => response.data),
       tap((data: any) => console.debug(data)),
       tap(data => this.store.set(data.team.id, data.access_token, { ttl: 0 })),
-      map((data: any) => ({ url: data.incoming_webhook.configuration_url })))
+      map((data: any) => ({ url: `https://slack.com/app_redirect?app=${data.app_id}` })))
   }
 
 }

@@ -15,7 +15,7 @@ export class HttpMock {
 
   post(url: string): Observable<AxiosResponse> {
     if (url === 'https://slack.com/api/oauth.v2.access')
-      return of({ data: { team: {}, incoming_webhook: { configuration_url: 'www.redirect.url' } } } as AxiosResponse);
+      return of({ data: { app_id: '4PP1D', team: {} } } as AxiosResponse);
     if (url === 'https://slack.com/api/chat.postMessage')
       return of({ data: { ok: true } } as AxiosResponse);
     return of({ data: { ok: false } } as AxiosResponse);

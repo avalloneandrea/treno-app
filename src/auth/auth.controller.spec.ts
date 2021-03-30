@@ -27,7 +27,7 @@ describe('AuthController', () => {
 
   it('should handle authorizations', () => {
     controller.handleAuthorizations('code')
-      .subscribe(result => expect(result).toEqual({ url: 'www.redirect.url' }));
+      .subscribe(result => expect(result).toEqual({ url: 'https://slack.com/app_redirect?app=4PP1D' }));
   });
 
 });
