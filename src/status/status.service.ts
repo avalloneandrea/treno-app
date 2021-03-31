@@ -12,26 +12,26 @@ export class StatusService {
 
   constructor(private http: HttpService, private pipe: StatusPipe) {}
 
-  getStatusByStationAndTrain(station: string, train: string): Observable<Status> {
-    if (!station || !train)
+  getStatusByTrain({ codLocOrig, numeroTreno, dataPartenza }: Train): Observable<Status> {
+    if (!codLocOrig || !numeroTreno || !dataPartenza)
       return of({ ok: false });
-    const url = `http://www.viaggiatreno.it/viaggiatrenonew/resteasy/viaggiatreno/andamentoTreno/${ station }/${ train }`;
+    const url = `http://www.viaggiatreno.it/viaggiatrenonew/resteasy/viaggiatreno/andamentoTreno/${ codLocOrig }/${ numeroTreno }/${ dataPartenza }`;
     return this.http.get(url).pipe(
-      map((response: AxiosResponse) => response.data));
+      map((response: AxiosResponse) => Object.assign({ ok: true }, response.data)));
   }
 
-  getStatusByTrain(train: string): Observable<Status> {
-    if (!train)
-      return of({ ok: false });
-    const url = `http://www.viaggiatreno.it/viaggiatrenonew/resteasy/viaggiatreno/cercaNumeroTreno/${ train }`;
+  getStatusByNumber(number: string): Observable<Status> {
+    if (!number)
+      return of();
+    const url = `http://www.viaggiatreno.it/viaggiatrenonew/resteasy/viaggiatreno/cercaNumeroTreno/${ number }`;
     return this.http.get(url).pipe(
       map((response: AxiosResponse) => Object.assign({ ok: true }, response.data)),
-      switchMap((train: Train) => this.getStatusByStationAndTrain(train.codLocOrig, train.numeroTreno)));
+      switchMap((train: Train) => this.getStatusByTrain(train)));
   }
 
   getStatusByText(text: string): Observable<Status> {
     const train: string = this.pipe.transform(text);
-    return this.getStatusByTrain(train);
+    return this.getStatusByNumber(train);
   }
 
 }

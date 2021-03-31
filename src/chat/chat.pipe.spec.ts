@@ -18,6 +18,11 @@ describe('ChatPipe', () => {
     expect(pipe).toBeDefined();
   });
 
+  it('should transform a value for an invalid train', () => {
+    const status: Status = { ok: false }
+    expect(pipe.transform(status)).toContain('Treno non trovato');
+  });
+
   it('should transform a value for an ongoing train', () => {
     const status: Status = {
       ok: true,

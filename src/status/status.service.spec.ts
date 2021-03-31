@@ -23,25 +23,27 @@ describe('StatusService', () => {
     expect(service).toBeDefined();
   });
 
-  it('should get the status of a valid station and train', () => {
-    service.getStatusByStationAndTrain('5747105', '72415')
-      .subscribe(result => expect(result.compNumeroTreno).toEqual('REG 72415'));
-  });
-
-  it('should not get the status of an invalid station or train', () => {
-    service.getStatusByStationAndTrain('5747105', '')
-      .subscribe(result => expect(result.ok).toBeFalsy());
-    service.getStatusByStationAndTrain('', '72415')
-      .subscribe(result => expect(result.ok).toBeFalsy());
-  });
-
   it('should get the status of a valid train', () => {
-    service.getStatusByTrain('72415')
+    service.getStatusByTrain({ codLocOrig: '5747105', numeroTreno: '72415', dataPartenza: '71M3574MP' })
       .subscribe(result => expect(result.compNumeroTreno).toEqual('REG 72415'));
   });
 
   it('should not get the status of an invalid train', () => {
-    service.getStatusByTrain('')
+    service.getStatusByTrain({ codLocOrig: '5747105' })
+      .subscribe(result => expect(result.ok).toBeFalsy());
+    service.getStatusByTrain({ numeroTreno: '72415' })
+      .subscribe(result => expect(result.ok).toBeFalsy());
+    service.getStatusByTrain({ dataPartenza: '71M3574MP' })
+      .subscribe(result => expect(result.ok).toBeFalsy());
+  });
+
+  it('should get the status of a valid number', () => {
+    service.getStatusByNumber('72415')
+      .subscribe(result => expect(result.compNumeroTreno).toEqual('REG 72415'));
+  });
+
+  it('should not get the status of an invalid number', () => {
+    service.getStatusByNumber('51427')
       .subscribe(result => expect(result.ok).toBeFalsy());
   });
 
@@ -56,7 +58,7 @@ describe('StatusService', () => {
 
   it('should not get the status of an invalid text', () => {
     service.getStatusByText('')
-      .subscribe(result => expect(result.ok).toBeFalsy());
+      .subscribe(result => expect(result.ok).toBeNull());
   });
 
 });

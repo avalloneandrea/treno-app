@@ -8,7 +8,7 @@ export class ChatPipe implements PipeTransform {
 
   transform(status: Status) {
     if (!status.ok)
-      return 'Treno non trovato!';
+      return 'Treno non trovato';
     else return [
       `Il treno ${ status.compNumeroTreno }`,
       `proveniente da ${ startCase(toLower(status.origine)) } e diretto a ${ startCase(toLower(status.destinazione)) }`,
