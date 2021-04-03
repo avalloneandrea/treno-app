@@ -34,11 +34,17 @@ describe('ChatService', () => {
   });
 
   it('should handle bot mentions and DMs', () => {
+    service.handleBotMentionsAndDMs({ event: { text: 'help' } })
+      .subscribe(result => expect(result).toBeTruthy());
+    service.handleBotMentionsAndDMs({ event: { text: '@treno help' } })
+      .subscribe(result => expect(result).toBeTruthy());
+    service.handleBotMentionsAndDMs({ event: { text: '/remind @treno help' } })
+      .subscribe(result => expect(result).toBeTruthy());
     service.handleBotMentionsAndDMs({ event: { text: '72415' } })
       .subscribe(result => expect(result).toBeTruthy());
     service.handleBotMentionsAndDMs({ event: { text: '@treno 72415' } })
       .subscribe(result => expect(result).toBeTruthy());
-    service.handleBotMentionsAndDMs({ event: { text: 'Remind: @treno 72415.' } })
+    service.handleBotMentionsAndDMs({ event: { text: '/remind @treno 72415' } })
       .subscribe(result => expect(result).toBeTruthy());
   });
 

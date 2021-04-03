@@ -1,7 +1,7 @@
 import { CACHE_MANAGER, HttpService, Inject, Injectable } from '@nestjs/common';
 import { AxiosResponse } from 'axios';
 import { Cache } from 'cache-manager';
-import { forkJoin, Observable, of } from 'rxjs';
+import { forkJoin, from, Observable, of } from 'rxjs';
 import { map, switchMap, tap } from 'rxjs/operators';
 
 import { ChatPipe } from './chat.pipe';
@@ -20,6 +20,25 @@ export class ChatService {
   }
 
   handleBotMentionsAndDMs(wrapper: Wrapper): Observable<string> {
+    if (wrapper.event.text.endsWith('help'))
+      return this.handleHelpRequests(wrapper);
+    return this.handleStatusRequests(wrapper);
+  }
+
+  handleHelpRequests(wrapper: Wrapper): Observable<string> {
+    const url = 'https://slack.com/api/chat.postMessage';
+    const message: Message = {
+      channel: wrapper.event.channel,
+      attachments: [ this.pipe.help() ],
+    };
+    return from(this.store.get(wrapper.team_id)).pipe(
+      switchMap(token => this.http.post(url, message, { headers: { Authorization: `Bearer ${ token }` } })),
+      map((response: AxiosResponse) => response.data),
+      tap((data: any) => console.debug(data)),
+      map((data: any) => data.ok));
+  }
+
+  handleStatusRequests(wrapper: Wrapper): Observable<string> {
     const url = 'https://slack.com/api/chat.postMessage';
     return this.service.getStatusByText(wrapper.event.text).pipe(
       map((status: Status) => this.pipe.transform(status)),

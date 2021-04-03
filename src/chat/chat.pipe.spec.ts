@@ -19,7 +19,7 @@ describe('ChatPipe', () => {
   });
 
   it('should transform a value for an invalid train', () => {
-    const status: Status = { ok: false }
+    const status: Status = { ok: false };
     expect(pipe.transform(status)).toContain('Treno non trovato');
   });
 
@@ -32,7 +32,7 @@ describe('ChatPipe', () => {
       compOrarioPartenza: '18:17',
       provvedimento: 0,
       compRitardoAndamento: [ 'in orario' ]
-    }
+    };
     expect(pipe.transform(status)).toContain('Il treno REG 72415');
     expect(pipe.transform(status)).toContain('proveniente da Napoli Centrale');
     expect(pipe.transform(status)).toContain('diretto a Sapri');
@@ -49,12 +49,18 @@ describe('ChatPipe', () => {
       compOrarioPartenza: '18:17',
       provvedimento: 1,
       compRitardoAndamento: [ 'in orario' ]
-    }
+    };
     expect(pipe.transform(status)).toContain('Il treno REG 72415');
     expect(pipe.transform(status)).toContain('proveniente da Napoli Centrale');
     expect(pipe.transform(status)).toContain('diretto a Sapri');
     expect(pipe.transform(status)).toContain('delle ore 18:17');
     expect(pipe.transform(status)).toContain('è stato cancellato');
+  });
+
+  it('should provide help message', () => {
+    expect(pipe.help().pretext).toContain('Hai bisogno di aiuto con Treno');
+    expect(pipe.help().text).toContain('Digita il numero di un treno in un messaggio diretto');
+    expect(pipe.help().text).toContain('ti invierò informazioni in tempo reale circa il suo andamento');
   });
 
 });
