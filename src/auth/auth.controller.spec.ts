@@ -15,8 +15,8 @@ describe('AuthController', () => {
       providers: [
         AuthController, AuthService,
         { provide: CACHE_MANAGER, useClass: StoreMock },
-        { provide: HttpService, useClass: HttpMock }
-      ]
+        { provide: HttpService, useClass: HttpMock },
+      ],
     }).compile();
     controller = fixture.get(AuthController);
   });

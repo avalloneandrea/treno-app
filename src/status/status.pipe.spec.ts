@@ -8,7 +8,7 @@ describe('StatusPipe', () => {
 
   beforeEach(async () => {
     const fixture: TestingModule = await Test.createTestingModule({
-      providers: [ StatusPipe ]
+      providers: [ StatusPipe ],
     }).compile();
     pipe = fixture.get(StatusPipe);
   });

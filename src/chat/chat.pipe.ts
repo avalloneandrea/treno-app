@@ -14,7 +14,7 @@ export class ChatPipe implements PipeTransform {
       `Il treno ${ status.compNumeroTreno }`,
       `proveniente da ${ startCase(toLower(status.origine)) } e diretto a ${ startCase(toLower(status.destinazione)) }`,
       `delle ore ${ status.compOrarioPartenza }`,
-      status.provvedimento === 0 ? `viaggia ${ status.compRitardoAndamento[0] }` : 'è stato cancellato'
+      status.provvedimento === 0 ? `viaggia ${ status.compRitardoAndamento[0] }` : 'è stato cancellato',
     ].join(', ');
   }
 
@@ -26,7 +26,7 @@ export class ChatPipe implements PipeTransform {
         + 'Ad esempio:\n'
         + '• "5344"\n'
         + '• "@treno 5344"\n'
-        + '• "/remind #general @treno 5344 every weekday at 12:34"'
+        + '• "/remind #general @treno 5344 every weekday at 12:34"',
     };
   }
 

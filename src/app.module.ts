@@ -16,17 +16,17 @@ import { StatusService } from './status/status.service';
   imports: [
     CacheModule.register({ store: redisStore, url: process.env.REDIS_URL }),
     HttpModule,
-    ServeStaticModule.forRoot({ rootPath: join(__dirname, '..', 'public') })
+    ServeStaticModule.forRoot({ rootPath: join(__dirname, '..', 'public') }),
   ],
   controllers: [
     AuthController,
-    ChatController
+    ChatController,
   ],
   providers: [
     AuthService,
     ChatPipe, ChatService,
-    StatusPipe, StatusService
-  ]
+    StatusPipe, StatusService,
+  ],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {

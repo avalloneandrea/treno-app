@@ -9,7 +9,7 @@ describe('ChatPipe', () => {
 
   beforeEach(async () => {
     const fixture: TestingModule = await Test.createTestingModule({
-      providers: [ ChatPipe ]
+      providers: [ ChatPipe ],
     }).compile();
     pipe = fixture.get(ChatPipe);
   });
@@ -31,7 +31,7 @@ describe('ChatPipe', () => {
       destinazione: 'SAPRI',
       compOrarioPartenza: '18:17',
       provvedimento: 0,
-      compRitardoAndamento: [ 'in orario' ]
+      compRitardoAndamento: [ 'in orario' ],
     };
     expect(pipe.transform(status)).toContain('Il treno REG 72415');
     expect(pipe.transform(status)).toContain('proveniente da Napoli Centrale');
@@ -48,7 +48,7 @@ describe('ChatPipe', () => {
       destinazione: 'SAPRI',
       compOrarioPartenza: '18:17',
       provvedimento: 1,
-      compRitardoAndamento: [ 'in orario' ]
+      compRitardoAndamento: [ 'in orario' ],
     };
     expect(pipe.transform(status)).toContain('Il treno REG 72415');
     expect(pipe.transform(status)).toContain('proveniente da Napoli Centrale');

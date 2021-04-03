@@ -18,8 +18,8 @@ describe('ChatService', () => {
         ChatPipe, ChatService,
         { provide: HttpService, useClass: HttpMock },
         { provide: CACHE_MANAGER, useClass: StoreMock },
-        StatusPipe, StatusService
-      ]
+        StatusPipe, StatusService,
+      ],
     }).compile();
     service = fixture.get(ChatService);
   });

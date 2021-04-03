@@ -19,8 +19,8 @@ describe('ChatController', () => {
         { provide: CACHE_MANAGER, useClass: StoreMock },
         ChatController, ChatPipe, ChatService,
         { provide: HttpService, useClass: HttpMock },
-        StatusPipe, StatusService
-      ]
+        StatusPipe, StatusService,
+      ],
     }).compile();
     controller = fixture.get(ChatController);
   });

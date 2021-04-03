@@ -13,8 +13,8 @@ describe('StatusService', () => {
     const fixture: TestingModule = await Test.createTestingModule({
       providers: [
         { provide: HttpService, useClass: HttpMock },
-        StatusPipe, StatusService
-      ]
+        StatusPipe, StatusService,
+      ],
     }).compile();
     service = fixture.get(StatusService);
   });
