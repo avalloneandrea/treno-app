@@ -10,7 +10,7 @@ export class AuthController {
   @Get()
   @Redirect()
   handleAuthorizations(@Query('code') code: string) {
-    return this.service.authorize(code);
+    return this.service.handleAuthorizations(code);
   }
 
 }

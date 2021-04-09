@@ -5,9 +5,8 @@ import { join } from 'path';
 
 import { AuthController } from './auth/auth.controller';
 import { AuthService } from './auth/auth.service';
-import { ChatController } from './chat/chat.controller';
-import { ChatPipe } from './chat/chat.pipe';
-import { ChatService } from './chat/chat.service';
+import { EventController } from './event/event.controller';
+import { EventService } from './event/event.service';
 import { HistoryMiddleware } from './history/history.middleware';
 import { StatusPipe } from './status/status.pipe';
 import { StatusService } from './status/status.service';
@@ -20,16 +19,17 @@ import { StatusService } from './status/status.service';
   ],
   controllers: [
     AuthController,
-    ChatController,
+    EventController,
   ],
   providers: [
     AuthService,
-    ChatPipe, ChatService,
-    StatusPipe, StatusService,
+    EventService,
+    StatusPipe,
+    StatusService,
   ],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
-    consumer.apply(HistoryMiddleware).forRoutes(ChatController);
+    consumer.apply(HistoryMiddleware).forRoutes(EventController);
   }
 }

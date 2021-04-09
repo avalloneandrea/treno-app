@@ -10,7 +10,7 @@ export class HttpMock {
       return of({ data: { numeroTreno: '72415', codLocOrig: '5747105', dataPartenza: '71M3574MP' } } as AxiosResponse);
     if (url === 'http://www.viaggiatreno.it/viaggiatrenonew/resteasy/viaggiatreno/andamentoTreno/5747105/72415/71M3574MP')
       return of({ data: { compNumeroTreno: 'REG 72415', provvedimento: 0, compRitardoAndamento: [ 'in orario' ] } } as AxiosResponse);
-    return of({ data: '\n' } as AxiosResponse);
+    return of({ data: null } as AxiosResponse);
   }
 
   post(url: string): Observable<AxiosResponse> {

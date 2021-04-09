@@ -1,6 +1,9 @@
 export class Event {
 
-  channel?: string;
+  type?: string;
   text?: string;
+  user?: string;
+  event_ts?: string;
+  channel?: string;
 
 }

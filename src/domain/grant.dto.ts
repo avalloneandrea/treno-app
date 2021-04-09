@@ -1,7 +1,7 @@
 export class Grant {
 
-  code?: string;
-  client_id?: string;
-  client_secret?: string;
+  team?: { id?: string };
+  access_token?: string;
+  app_id?: string;
 
 }
