@@ -28,7 +28,7 @@
     "cache-manager": "~3.4.3",
     "cache-manager-redis-store": "~2.0.0",
     "lodash": "~4.17.21",
-    "qs": "~6.10.1",
+    "qs": "~6.10.3",
     "reflect-metadata": "~0.1.13",
     "rimraf": "~3.0.2",
     "rxjs": "~6.6.7"
