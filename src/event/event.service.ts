@@ -1,4 +1,5 @@
-import { CACHE_MANAGER, HttpService, Inject, Injectable } from '@nestjs/common';
+import { HttpService } from '@nestjs/axios'
+import { CACHE_MANAGER, Inject, Injectable } from '@nestjs/common';
 import { AxiosResponse } from 'axios';
 import { Cache } from 'cache-manager';
 import { forkJoin, from, Observable, of } from 'rxjs';
@@ -32,7 +33,7 @@ export class EventService {
   handleHomeRequests(wrapper: Wrapper): Observable<string> {
     const url = 'https://slack.com/api/chat.postMessage';
     return from(this.store.get(wrapper.event.user)).pipe(
-      switchMap((ts: string) => ts !== null ? of() : this.store.set(wrapper.event.user, wrapper.event.event_ts, { ttl: 0 })),
+      switchMap((ts: string) => ts !== null ? of() : this.store.set(wrapper.event.user, wrapper.event.event_ts, 0)),
       switchMap(() => this.store.get(wrapper.team_id)),
       switchMap((token: string) => this.http.post(url, MessageFactory.home(wrapper), { headers: { Authorization: `Bearer ${ token }` } })),
       map((response: AxiosResponse) => response.data),

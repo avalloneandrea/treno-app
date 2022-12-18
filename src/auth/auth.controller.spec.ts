@@ -1,4 +1,5 @@
-import { CACHE_MANAGER, HttpService } from '@nestjs/common';
+import { HttpService } from '@nestjs/axios'
+import { CACHE_MANAGER } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 
 import { AuthController } from './auth.controller';

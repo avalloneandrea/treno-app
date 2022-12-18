@@ -1,4 +1,5 @@
-import { CACHE_MANAGER, HttpService, Inject, Injectable } from '@nestjs/common';
+import { HttpService } from '@nestjs/axios'
+import { CACHE_MANAGER, Inject, Injectable } from '@nestjs/common';
 import { AxiosResponse } from 'axios';
 import { Cache } from 'cache-manager';
 import { stringify } from 'qs';
@@ -18,7 +19,7 @@ export class AuthService {
     return this.http.post(url, stringify({ code, client_id, client_secret })).pipe(
       map((response: AxiosResponse) => response.data),
       tap((grant: Grant) => console.debug(grant)),
-      tap((grant: Grant) => this.store.set(grant.team.id, grant.access_token, { ttl: 0 })),
+      tap((grant: Grant) => this.store.set(grant.team.id, grant.access_token, 0)),
       map((grant: Grant) => ({ url: `https://slack.com/app_redirect?app=${ grant.app_id }` })));
   }
 

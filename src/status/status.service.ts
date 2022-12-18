@@ -1,4 +1,5 @@
-import { HttpService, Injectable } from '@nestjs/common';
+import { HttpService } from '@nestjs/axios'
+import { Injectable } from '@nestjs/common';
 import { AxiosResponse } from 'axios';
 import { Observable, of } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
