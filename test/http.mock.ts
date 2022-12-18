@@ -6,9 +6,9 @@ import { Observable, of } from 'rxjs';
 export class HttpMock {
 
   get(url: string): Observable<AxiosResponse> {
-    if (url === 'http://www.viaggiatreno.it/viaggiatrenonew/resteasy/viaggiatreno/cercaNumeroTreno/72415')
+    if (url === 'http://www.viaggiatreno.it/infomobilita/resteasy/viaggiatreno/cercaNumeroTreno/72415')
       return of({ data: { numeroTreno: '72415', codLocOrig: '5747105', dataPartenza: '71M3574MP' } } as AxiosResponse);
-    if (url === 'http://www.viaggiatreno.it/viaggiatrenonew/resteasy/viaggiatreno/andamentoTreno/5747105/72415/71M3574MP')
+    if (url === 'http://www.viaggiatreno.it/infomobilita/resteasy/viaggiatreno/andamentoTreno/5747105/72415/71M3574MP')
       return of({ data: { compNumeroTreno: 'REG 72415', provvedimento: 0, compRitardoAndamento: [ 'in orario' ] } } as AxiosResponse);
     return of({ data: null } as AxiosResponse);
   }

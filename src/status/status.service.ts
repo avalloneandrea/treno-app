@@ -20,7 +20,7 @@ export class StatusService {
   getStatusByNumber(number: string): Observable<Status> {
     if (!number)
       return of();
-    const url = `http://www.viaggiatreno.it/viaggiatrenonew/resteasy/viaggiatreno/cercaNumeroTreno/${ number }`;
+    const url = `http://www.viaggiatreno.it/infomobilita/resteasy/viaggiatreno/cercaNumeroTreno/${ number }`;
     return this.http.get(url).pipe(
       map((response: AxiosResponse) => Object.assign({ ok: true }, response.data)),
       switchMap((train: Train) => this.getStatusByTrain(train)));
@@ -29,7 +29,7 @@ export class StatusService {
   getStatusByTrain({ codLocOrig, numeroTreno, dataPartenza }: Train): Observable<Status> {
     if (!codLocOrig || !numeroTreno || !dataPartenza)
       return of({ ok: false });
-    const url = `http://www.viaggiatreno.it/viaggiatrenonew/resteasy/viaggiatreno/andamentoTreno/${ codLocOrig }/${ numeroTreno }/${ dataPartenza }`;
+    const url = `http://www.viaggiatreno.it/infomobilita/resteasy/viaggiatreno/andamentoTreno/${ codLocOrig }/${ numeroTreno }/${ dataPartenza }`;
     return this.http.get(url).pipe(
       map((response: AxiosResponse) => Object.assign({ ok: true }, response.data)));
   }

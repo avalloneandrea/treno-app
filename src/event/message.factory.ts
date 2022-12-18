@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { startCase, toLower } from 'lodash';
+import { startCase, toLower, trim } from 'lodash';
 
 import { Message } from '../domain/message.dto';
 import { Status } from '../domain/status.dto';
@@ -34,10 +34,10 @@ export class MessageFactory {
     return {
       channel: wrapper.event.channel,
       text: !status.ok ? 'Treno non trovato' : [
-        `Il treno ${ status.compNumeroTreno }`,
-        `proveniente da ${ startCase(toLower(status.origine)) } e diretto a ${ startCase(toLower(status.destinazione)) }`,
-        `delle ore ${ status.compOrarioPartenza }`,
-        status.provvedimento === 0 ? `viaggia ${ status.compRitardoAndamento[0] }` : 'è stato cancellato',
+        `Il treno ${ trim(status.compNumeroTreno) }`,
+        `proveniente da ${ startCase(toLower(trim(status.origine))) } e diretto a ${ startCase(toLower(trim(status.destinazione))) }`,
+        `delle ore ${ trim(status.compOrarioPartenza) }`,
+        status.provvedimento === 0 ? `viaggia ${ trim(status.compRitardoAndamento[0]) }` : 'è stato cancellato',
       ].join(', '),
     };
   }
