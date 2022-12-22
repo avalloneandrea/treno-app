@@ -1,8 +1,8 @@
-import { HttpService } from '@nestjs/axios'
+import { HttpService } from '@nestjs/axios';
 import { CACHE_MANAGER, Inject, Injectable } from '@nestjs/common';
 import { AxiosResponse } from 'axios';
 import { Cache } from 'cache-manager';
-import { forkJoin, from, Observable, of } from 'rxjs';
+import { defaultIfEmpty, filter, forkJoin, from, Observable, of } from 'rxjs';
 import { map, switchMap, tap } from 'rxjs/operators';
 
 import { MessageFactory } from './message.factory';
@@ -13,52 +13,64 @@ import { StatusService } from '../status/status.service';
 @Injectable()
 export class EventService {
 
-  constructor(@Inject(CACHE_MANAGER) private store: Cache, private http: HttpService, private service: StatusService) {}
+  constructor(@Inject(CACHE_MANAGER) private cache: Cache, private http: HttpService, private service: StatusService) {}
 
-  handleEvents(wrapper: Wrapper): Observable<string> {
+  handleEvents(wrapper: Wrapper): Observable<any> {
     if (wrapper.type === 'url_verification')
-      return this.handleUrlVerifications(wrapper);
+      return this.handleUrlVerificationEvents(wrapper);
+    if (wrapper.event.bot_id)
+      return this.handleBotMessageEvents(wrapper);
     else if (wrapper.event.type === 'app_home_opened')
-      return this.handleHomeRequests(wrapper);
+      return this.handleHomeOpenedEvents(wrapper);
     if (wrapper.event.text.endsWith('help'))
-      return this.handleHelpRequests(wrapper);
+      return this.handleHelpEvents(wrapper);
     else // if (wrapper.event.type === 'message')
-      return this.handleStatusRequests(wrapper);
+      return this.handleStatusEvents(wrapper);
   }
 
-  handleUrlVerifications(wrapper: Wrapper): Observable<string> {
+  handleUrlVerificationEvents(wrapper: Wrapper): Observable<string> {
     return of(wrapper.challenge);
   }
 
-  handleHomeRequests(wrapper: Wrapper): Observable<string> {
+  handleBotMessageEvents(wrapper: Wrapper): Observable<boolean> {
+    return of(false);
+  }
+
+  handleHomeOpenedEvents(wrapper: Wrapper): Observable<boolean> {
     const url = 'https://slack.com/api/chat.postMessage';
-    return from(this.store.get(wrapper.event.user)).pipe(
-      switchMap((ts: string) => ts !== null ? of() : this.store.set(wrapper.event.user, wrapper.event.event_ts, 0)),
-      switchMap(() => this.store.get(wrapper.team_id)),
-      switchMap((token: string) => this.http.post(url, MessageFactory.home(wrapper), { headers: { Authorization: `Bearer ${ token }` } })),
+    return from(this.cache.get(wrapper.event.user)).pipe(
+      filter((teamId: string) => teamId === null),
+      tap(() => this.cache.set(wrapper.event.user, wrapper.team_id, 0)),
+      switchMap(() => this.cache.get(wrapper.team_id)),
+      filter((token: string) => token !== null),
+      switchMap((token: string) => this.http.post(url, MessageFactory.homeOpened(wrapper), { headers: { Authorization: `Bearer ${ token }` } })),
       map((response: AxiosResponse) => response.data),
       tap((data: any) => console.debug(data)),
       map((data: any) => data.ok),
-    );
+      defaultIfEmpty(false));
   }
 
-  handleHelpRequests(wrapper: Wrapper): Observable<string> {
+  handleHelpEvents(wrapper: Wrapper): Observable<boolean> {
     const url = 'https://slack.com/api/chat.postMessage';
-    return from(this.store.get(wrapper.team_id)).pipe(
+    return from(this.cache.get(wrapper.team_id)).pipe(
+      filter((token: string) => token !== null),
       switchMap((token: string) => this.http.post(url, MessageFactory.help(wrapper), { headers: { Authorization: `Bearer ${ token }` } })),
       map((response: AxiosResponse) => response.data),
       tap((data: any) => console.debug(data)),
-      map((data: any) => data.ok));
+      map((data: any) => data.ok),
+      defaultIfEmpty(of(false)));
   }
 
-  handleStatusRequests(wrapper: Wrapper): Observable<string> {
+  handleStatusEvents(wrapper: Wrapper): Observable<boolean> {
     const url = 'https://slack.com/api/chat.postMessage';
     return this.service.getStatusByText(wrapper.event.text).pipe(
-      switchMap((status: Status) => forkJoin([ of(MessageFactory.status(wrapper, status)), this.store.get(wrapper.team_id) ])),
+      switchMap((status: Status) => forkJoin([ of(MessageFactory.status(wrapper, status)), this.cache.get(wrapper.team_id) ])),
+      filter(([ message, token ]) => token !== null),
       switchMap(([ message, token ]) => this.http.post(url, message, { headers: { Authorization: `Bearer ${ token }` } })),
       map((response: AxiosResponse) => response.data),
       tap((data: any) => console.debug(data)),
-      map((data: any) => data.ok));
+      map((data: any) => data.ok),
+      defaultIfEmpty(of(false)));
   }
 
 }

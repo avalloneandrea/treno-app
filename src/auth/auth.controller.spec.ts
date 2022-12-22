@@ -1,25 +1,20 @@
-import { HttpService } from '@nestjs/axios'
-import { CACHE_MANAGER } from '@nestjs/common';
-import { Test, TestingModule } from '@nestjs/testing';
+import { createMock, DeepMocked } from '@golevelup/ts-jest';
+import { Test } from '@nestjs/testing';
 
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
-import { HttpMock } from '../../test/http.mock';
-import { StoreMock } from '../../test/store.mock';
 
 describe('AuthController', () => {
 
   let controller: AuthController;
+  let service: DeepMocked<AuthService>;
 
   beforeEach(async () => {
-    const fixture: TestingModule = await Test.createTestingModule({
-      providers: [
-        AuthController, AuthService,
-        { provide: CACHE_MANAGER, useClass: StoreMock },
-        { provide: HttpService, useClass: HttpMock },
-      ],
-    }).compile();
-    controller = fixture.get(AuthController);
+    const module = await Test.createTestingModule({
+      controllers: [ AuthController ],
+    }).useMocker(createMock).compile();
+    controller = module.get(AuthController);
+    service = module.get(AuthService);
   });
 
   it('should be defined', () => {
@@ -27,8 +22,13 @@ describe('AuthController', () => {
   });
 
   it('should handle authorizations', () => {
-    controller.handleAuthorizations('code')
-      .subscribe(result => expect(result).toEqual({ url: 'https://slack.com/app_redirect?app=4PP1D' }));
+    const code = 'code';
+    controller.handleAuthorizations(code);
+    expect(service.handleAuthorizations).toHaveBeenCalledWith(code);
+  });
+
+  afterEach(() => {
+    jest.clearAllMocks();
   });
 
 });

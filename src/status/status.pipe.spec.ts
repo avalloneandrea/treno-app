@@ -1,4 +1,4 @@
-import { Test, TestingModule } from '@nestjs/testing';
+import { Test } from '@nestjs/testing';
 
 import { StatusPipe } from './status.pipe';
 
@@ -7,10 +7,10 @@ describe('StatusPipe', () => {
   let pipe: StatusPipe;
 
   beforeEach(async () => {
-    const fixture: TestingModule = await Test.createTestingModule({
+    const module = await Test.createTestingModule({
       providers: [ StatusPipe ],
     }).compile();
-    pipe = fixture.get(StatusPipe);
+    pipe = module.get(StatusPipe);
   });
 
   it('should be defined', () => {
@@ -18,9 +18,9 @@ describe('StatusPipe', () => {
   });
 
   it('should transform a valid value', () => {
-    expect(pipe.transform('72415')).toBe('72415');
-    expect(pipe.transform('@treno 72415')).toBe('72415');
-    expect(pipe.transform('Remind: @treno 72415.')).toBe('72415');
+    expect(pipe.transform('7241')).toBe('7241');
+    expect(pipe.transform('@treno 7241')).toBe('7241');
+    expect(pipe.transform('Remind: @treno 7241.')).toBe('7241');
   });
 
   it('should not transform an invalid value', () => {

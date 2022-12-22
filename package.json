@@ -1,6 +1,6 @@
 {
   "name": "treno-app",
-  "version": "2.7.1",
+  "version": "2.7.2",
   "description": "",
   "author": "",
   "private": true,
@@ -21,6 +21,7 @@
     "test:e2e": "jest --config ./test/jest-e2e.json"
   },
   "dependencies": {
+    "@golevelup/ts-jest": "~0.3.4",
     "@nestjs/axios": "~1.0.0",
     "@nestjs/common": "~9.2.1",
     "@nestjs/core": "~9.2.1",
@@ -43,6 +44,7 @@
     "@types/jest": "~29.2.4",
     "@types/lodash": "~4.14.191",
     "@types/node": "~18.11.17",
+    "@types/qs": "~6.9.7",
     "@types/supertest": "~2.0.12",
     "@typescript-eslint/eslint-plugin": "~5.46.1",
     "@typescript-eslint/parser": "~5.46.1",
@@ -68,11 +70,8 @@
     "rootDir": "src",
     "testRegex": ".*\\.spec\\.ts$",
     "transform": {
-      "~.+\\.(t|j)s$": "ts-jest"
+      "^.+\\.(t|j)s$": "ts-jest"
     },
-    "collectCoverageFrom": [
-      "**/*.(t|j)s"
-    ],
     "coverageDirectory": "../coverage",
     "testEnvironment": "node"
   }

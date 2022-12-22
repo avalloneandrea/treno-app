@@ -1,4 +1,4 @@
-import { HttpService } from '@nestjs/axios'
+import { HttpService } from '@nestjs/axios';
 import { Injectable } from '@nestjs/common';
 import { AxiosResponse } from 'axios';
 import { Observable, of } from 'rxjs';
@@ -14,13 +14,13 @@ export class StatusService {
   constructor(private http: HttpService, private pipe: StatusPipe) {}
 
   getStatusByText(text: string): Observable<Status> {
-    const number: string = this.pipe.transform(text);
+    const number = this.pipe.transform(text);
     return this.getStatusByNumber(number);
   }
 
   getStatusByNumber(number: string): Observable<Status> {
     if (!number)
-      return of();
+      return of({ ok: false });
     const url = `http://www.viaggiatreno.it/infomobilita/resteasy/viaggiatreno/cercaNumeroTreno/${ number }`;
     return this.http.get(url).pipe(
       map((response: AxiosResponse) => Object.assign({ ok: true }, response.data)),

@@ -12,16 +12,9 @@ describe('HistoryMiddleware', () => {
     expect(middleware).toBeDefined();
   });
 
-  it('should pass an unseen request', () => {
-    const req: any = { body: { event_id: 'id' } };
-    const next: any = jest.fn();
-    middleware.use(req, null, next);
-    expect(next).toHaveBeenCalledTimes(1);
-  });
-
-  it('should stop a seen request', () => {
-    const req: any = { body: { event_id: 'id' } };
-    const next: any = jest.fn();
+  it('should pass unseen requests only', () => {
+    const req = { body: { event_id: '3V3NT1D' } } as any;
+    const next = jest.fn() as any;
     middleware.use(req, null, next);
     middleware.use(req, null, next);
     middleware.use(req, null, next);

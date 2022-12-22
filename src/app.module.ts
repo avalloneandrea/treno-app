@@ -1,4 +1,4 @@
-import { HttpModule } from '@nestjs/axios'
+import { HttpModule } from '@nestjs/axios';
 import { CacheModule, MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import * as redisStore from 'cache-manager-redis-store';

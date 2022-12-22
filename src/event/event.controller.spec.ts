@@ -1,30 +1,20 @@
-import { HttpService } from '@nestjs/axios'
-import { CACHE_MANAGER } from '@nestjs/common';
-import { Test, TestingModule } from '@nestjs/testing';
+import { createMock, DeepMocked } from '@golevelup/ts-jest';
+import { Test } from '@nestjs/testing';
 
 import { EventController } from './event.controller';
 import { EventService } from './event.service';
-import { StatusPipe } from '../status/status.pipe';
-import { StatusService } from '../status/status.service';
-import { HttpMock } from '../../test/http.mock';
-import { StoreMock } from '../../test/store.mock';
 
 describe('EventController', () => {
 
   let controller: EventController;
+  let service: DeepMocked<EventService>;
 
   beforeEach(async () => {
-    const fixture: TestingModule = await Test.createTestingModule({
-      providers: [
-        { provide: CACHE_MANAGER, useClass: StoreMock },
-        EventController,
-        EventService,
-        { provide: HttpService, useClass: HttpMock },
-        StatusPipe,
-        StatusService,
-      ],
-    }).compile();
-    controller = fixture.get(EventController);
+    const module = await Test.createTestingModule({
+      controllers: [ EventController ],
+    }).useMocker(createMock).compile();
+    controller = module.get(EventController);
+    service = module.get(EventService);
   });
 
   it('should be defined', () => {
@@ -32,8 +22,13 @@ describe('EventController', () => {
   });
 
   it('should handle events', () => {
-    controller.handleEvents({ event: { text: '' } })
-      .subscribe(result => expect(result).toBeTruthy());
+    const wrapper = { event: { text: '7541' } };
+    controller.handleEvents(wrapper);
+    expect(service.handleEvents).toHaveBeenCalledWith(wrapper);
+  });
+
+  afterEach(() => {
+    jest.clearAllMocks();
   });
 
 });

@@ -8,7 +8,7 @@ import { Wrapper } from '../domain/wrapper.dto';
 @Injectable()
 export class MessageFactory {
 
-  static home(wrapper: Wrapper): Message {
+  static homeOpened(wrapper: Wrapper): Message {
     return {
       channel: wrapper.event.channel,
       text: ':tada: Benvenuto in Treno! Digita il numero di un treno in circolazione per conoscere il suo andamento.',
@@ -23,9 +23,9 @@ export class MessageFactory {
         text: 'Digita il numero di un treno in un messaggio diretto o menzionando @treno in un canale. ' +
           'Successivamente, ti invierò informazioni in tempo reale circa il suo andamento. ' +
           'Ad esempio:\n' +
-          '• "5344"\n' +
-          '• "@treno 5344"\n' +
-          '• "/remind #general @treno 5344 every weekday at 12:34"',
+          '• "7341"\n' +
+          '• "@treno 7341"\n' +
+          '• "/remind #general @treno 7341 every weekday at 12:34"',
       } ],
     };
   }
