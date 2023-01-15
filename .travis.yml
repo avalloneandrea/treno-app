@@ -1,9 +1,0 @@
-language: node_js
-node_js: "lts/dubnium"
-
-script:
-  - npm run test:cov
-  - npm run test:e2e
-
-after_success:
-  - cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
